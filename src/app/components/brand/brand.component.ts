@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Brand } from 'src/app/models/brand';
+import { CarDetail } from 'src/app/models/car-detail';
 import { Color } from 'src/app/models/color';
 import { Customer } from 'src/app/models/customer';
 import { BrandService } from 'src/app/services/brand.service';
+import { CarService } from 'src/app/services/car.service';
 import { ColorService } from 'src/app/services/color.service';
 import { CustomerService } from 'src/app/services/customer.service';
 
@@ -15,6 +17,8 @@ export class BrandComponent implements OnInit {
   colors: Color[] = [];
   brands: Brand[] = [];
   customers: Customer[] = [];
+  carDetails: CarDetail[] = [];
+  dataLoaded = false;
   currentBrand: Brand;
   currentColor: Color;
   currentCustomer: Customer;
@@ -22,7 +26,8 @@ export class BrandComponent implements OnInit {
   constructor(
     private brandService: BrandService,
     private colorService: ColorService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private carService: CarService
   ) {}
 
   ngOnInit(): void {
@@ -96,5 +101,17 @@ export class BrandComponent implements OnInit {
     } else {
       return 'list-group-item';
     }
+  }
+  getCarDetailsByBrandId(brandId: number) {
+    this.carService.getCarDetailsByBrandId(brandId).subscribe((response) => {
+      this.carDetails = response.data;
+      this.dataLoaded = true;
+    });
+  }
+  getCarDetailsByColorId(colorId: number) {
+    this.carService.getCarDetailsByColorId(colorId).subscribe((response) => {
+      this.carDetails = response.data;
+      this.dataLoaded = true;
+    });
   }
 }

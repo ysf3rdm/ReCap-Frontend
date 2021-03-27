@@ -1,45 +1,60 @@
-<div
-  *ngIf="dataLoaded == false"
-  class="spinner-border text-primary"
-  role="status"
->
-  <span class="visually-hidden"></span>
+<div class="card" style="width: 55rem">
+  <div *ngFor="let image of images" class="card" style="width: 30rem">
+    <img src="https://localhost:44368\{{ image.imagePath }}" />
+  </div>
+  <div class="card-body">
+    <div class="car-header">
+      <div class="row">
+        <div
+          *ngIf="dataLoaded == false"
+          class="spinner-border text-primary"
+          role="status"
+        >
+          <span class="visually-hidden"></span>
+        </div>
+        <table *ngIf="dataLoaded == true" class="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Markası</th>
+              <th>Araba Adı</th>
+              <th>Model Yılı</th>
+              <th>Rengi</th>
+              <th>Açıklama</th>
+              <th>Günlük Ücret</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let carDetail of carDetails">
+              <td>{{ carDetail.carId }}</td>
+              <td>{{ carDetail.brandName }}</td>
+              <td>{{ carDetail.carName }}</td>
+              <td>{{ carDetail.modelYear }}</td>
+              <td>{{ carDetail.colorName }}</td>
+              <td>{{ carDetail.description }}</td>
+              <td>{{ carDetail.dailyPrice }}</td>
+              <td>
+                <button
+                  routerLink="/cars"
+                  type="button"
+                  class="btn btn-warning"
+                >
+                  Geri Dön
+                </button>
+              </td>
+              <td>
+                <button
+                  (click)="addToRental(carDetail)"
+                  type="button"
+                  class="btn btn-success"
+                >
+                  Kirala
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-<table *ngIf="dataLoaded == true" class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Renk Id</th>
-      <th>Marka Id</th>
-      <th>Günlük Ücreti</th>
-      <th>Daha Fazlası</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let car of cars">
-      <td>{{ car.carId }}</td>
-      <td>{{ car.colorId }}</td>
-      <td>{{ car.brandId }}</td>
-      <td>{{ car.dailyPrice }}</td>
-      <td>
-        <button
-          routerLink="/cars/cardetail/{{ car.carId }}"
-          type="button"
-          class="btn btn-light"
-          (click)="getCarDetailsByCarId(car.carId)"
-        >
-          Detayları Gör
-        </button>
-      </td>
-      <!-- <td>
-        <button
-          (click)="addToRental(carDetails)"
-          type="button"
-          class="btn btn-success"
-        >
-          Kirala
-        </button>
-      </td> -->
-    </tr>
-  </tbody>
-</table>

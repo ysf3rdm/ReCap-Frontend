@@ -1,3 +1,24 @@
+<div class="col-sm-6">
+  <select class="form-select" id="markasec">
+    <option value="" selected>Marka seç</option>
+    <option *ngFor="let brand of brands">
+      {{ brand.brandName }}
+    </option>
+  </select>
+</div>
+
+<div class="col-sm-6">
+  <select class="form-select" id="renksec">
+    <option value="" selected>Renk Seç</option>
+    <option *ngFor="let color of colors">
+      {{ color.colorName }}
+    </option>
+  </select>
+</div>
+<div class="col-sm-3">
+  <a type="button" class="btn btn-primary">Filtrele</a>
+</div>
+
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">

@@ -5,10 +5,25 @@
 >
   <span class="visually-hidden"></span>
 </div>
+<div class="mb-3">
+  <label for="filterText" class="form-label">Ürün Ara</label>
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="arama ifadesi giriniz"
+  />
+</div>
+
+<div *ngIf="filterText" class="alert alert-success">
+  {{ filterText }} aradınız
+</div>
 <table *ngIf="dataLoaded == true" class="table">
   <thead>
     <tr>
       <th>Id</th>
+      <th>Araba Adı</th>
       <th>Rengi</th>
       <th>Markası</th>
       <th>Günlük Ücreti</th>
@@ -16,8 +31,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let car of carDetails">
+    <tr *ngFor="let car of carDetails | filterPipe: filterText">
       <td>{{ car.carId }}</td>
+      <td>{{ car.carName }}</td>
       <td>{{ car.colorName }}</td>
       <td>{{ car.brandName }}</td>
       <td>{{ car.dailyPrice }}</td>
