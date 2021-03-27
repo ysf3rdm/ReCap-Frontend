@@ -17,23 +17,25 @@
       <th>Daha Fazlası</th>
     </tr>
   </thead>
-  <tr *ngFor="let car of cars">
-    <td>{{ car.carId }}</td>
-    <td>{{ car.colorId }}</td>
-    <td>{{ car.brandId }}</td>
-    <td>{{ car.dailyPrice }}</td>
-    <td>{{ car.modelYear }}</td>
-    <td>{{ car.description }}</td>
+  <tbody>
+    <tr *ngFor="let car of cars">
+      <td>{{ car.carId }}</td>
+      <td>{{ car.colorId }}</td>
+      <td>{{ car.brandId }}</td>
+      <td>{{ car.dailyPrice }}</td>
+      <td>{{ car.modelYear }}</td>
+      <td>{{ car.description }}</td>
 
-    <td>
-      <button
-        routerLink="/cars/cardetail/{{ car.carId }}"
-        type="button"
-        class="btn btn-light"
-        (click)="getCarDetailsByCarId(car.carId)"
-      >
-        Detayları Gör
-      </button>
-    </td>
-  </tr>
+      <td>
+        <button
+          routerLink="/cars/cardetail/{{ car.carId }}"
+          type="button"
+          class="btn btn-light"
+          (click)="getCarDetailsByCarId(car.carId)"
+        >
+          Detayları Gör
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
