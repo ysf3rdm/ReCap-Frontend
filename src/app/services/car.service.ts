@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Car } from '../models/car';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Observable } from 'rxjs';
-import { CarDetail } from '../models/carDetail';
-import { Color } from '../models/color';
 
 @Injectable({
   providedIn: 'root',
