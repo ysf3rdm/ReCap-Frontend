@@ -6,6 +6,7 @@ import { Image } from 'src/app/models/image';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarService } from 'src/app/services/car.service';
 import { ImageService } from 'src/app/services/image.service';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-car-detail',
@@ -23,7 +24,8 @@ export class CarDetailComponent implements OnInit {
     private carDetailService: CarDetailService,
     private activatedRoute: ActivatedRoute,
     private carService: CarService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private rentalService: RentalService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class CarDetailComponent implements OnInit {
         this.getCarDetailsByCarId(params['carId']);
       } else {
         this.getImages();
+        this.getCarDetails();
       }
     });
   }
@@ -81,5 +84,8 @@ export class CarDetailComponent implements OnInit {
       console.log(response);
       this.dataLoaded = true;
     });
+  }
+  addToRental(car: CarDetail) {
+    this.rentalService.addToRent(car);
   }
 }

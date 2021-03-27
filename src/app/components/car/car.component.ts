@@ -4,6 +4,7 @@ import { CarService } from 'src/app/services/car.service';
 import { ActivatedRoute } from '@angular/router';
 import { CarDetail } from 'src/app/models/car-detail';
 import { CarDetailService } from 'src/app/services/car-detail.service';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-car',
@@ -17,7 +18,8 @@ export class CarComponent implements OnInit {
   constructor(
     private carService: CarService,
     private activatedRoute: ActivatedRoute,
-    private carDetailService: CarDetailService
+    private carDetailService: CarDetailService,
+    private rentalService: RentalService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class CarComponent implements OnInit {
         this.getCarDetailsByCarId(params['carId']);
       } else {
         this.getCars();
+        this.getCarDetails();
       }
     });
   }
@@ -72,5 +75,8 @@ export class CarComponent implements OnInit {
         this.carDetails = response.data;
         this.dataLoaded = true;
       });
+  }
+  addToRental(car: CarDetail) {
+    this.rentalService.addToRent(car);
   }
 }

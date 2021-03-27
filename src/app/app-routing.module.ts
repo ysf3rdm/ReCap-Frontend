@@ -6,8 +6,8 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { RentalComponent } from './components/rental/rental.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: CarComponent },
-  { path: 'cars', component: CarComponent },
+  { path: '', pathMatch: 'full', component: CarDetailComponent },
+  { path: 'cars', component: CarDetailComponent },
   { path: 'cars/brand/:brandId', component: CarComponent },
   { path: 'cars/color/:colorId', component: CarComponent },
   { path: 'cars/customer/:customerId', component: CarComponent },

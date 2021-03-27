@@ -1,33 +1,45 @@
-<div class="car-header">
-  <div class="row">
-    <div class="col-md-3">
-      <ul *ngIf="dataLoaded == true">
-        <li>RESİMLER</li>
-        <li *ngFor="let image of images">
-          <img src="https://localhost:44368\{{ image.imagePath }}" />
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-9">
-      <table *ngIf="dataLoaded == true" class="table">
-        <thead>
-          <th>Markası</th>
-          <th>Rengi</th>
-          <th>Günlük Ücreti</th>
-        </thead>
-        <tbody>
-          <tr *ngIf="cardetails$">
-            <td>{{ cardetails$.brandName }}</td>
-            <td>{{ cardetails$.colorName }}</td>
-            <td>{{ cardetails$.dailyPrice }}</td>
-            <td></td>
-          </tr>
-
-          <button routerLink="/cars" type="button" class="btn btn-light">
-            Geri Dön
-          </button>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div
+  *ngIf="dataLoaded == false"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden"></span>
 </div>
+<table *ngIf="dataLoaded == true" class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Rengi</th>
+      <th>Markası</th>
+      <th>Günlük Ücreti</th>
+      <th>Daha Fazlası</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let car of carDetails">
+      <td>{{ car.carId }}</td>
+      <td>{{ car.colorName }}</td>
+      <td>{{ car.brandName }}</td>
+      <td>{{ car.dailyPrice }}</td>
+      <td>
+        <button
+          routerLink="/cars/cardetail/{{ car.carId }}"
+          type="button"
+          class="btn btn-light"
+          (click)="getCarDetailsByCarId(car.carId)"
+        >
+          Detayları Gör
+        </button>
+      </td>
+      <td>
+        <button
+          (click)="addToRental(car)"
+          type="button"
+          class="btn btn-success"
+        >
+          Kirala
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

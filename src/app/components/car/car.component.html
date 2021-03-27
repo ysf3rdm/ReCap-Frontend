@@ -9,11 +9,9 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Color Id</th>
-      <th>Brand Id</th>
-      <th>Daily Price</th>
-      <th>Model Year</th>
-      <th>Açıklama</th>
+      <th>Renk Id</th>
+      <th>Marka Id</th>
+      <th>Günlük Ücreti</th>
       <th>Daha Fazlası</th>
     </tr>
   </thead>
@@ -23,9 +21,6 @@
       <td>{{ car.colorId }}</td>
       <td>{{ car.brandId }}</td>
       <td>{{ car.dailyPrice }}</td>
-      <td>{{ car.modelYear }}</td>
-      <td>{{ car.description }}</td>
-
       <td>
         <button
           routerLink="/cars/cardetail/{{ car.carId }}"
@@ -36,6 +31,15 @@
           Detayları Gör
         </button>
       </td>
+      <!-- <td>
+        <button
+          (click)="addToRental(carDetails)"
+          type="button"
+          class="btn btn-success"
+        >
+          Kirala
+        </button>
+      </td> -->
     </tr>
   </tbody>
 </table>
