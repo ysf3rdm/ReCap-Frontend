@@ -19,6 +19,8 @@ export class BrandComponent implements OnInit {
   customers: Customer[] = [];
   carDetails: CarDetail[] = [];
   dataLoaded = false;
+  brandNumber: number;
+  colorNumber: number;
   currentBrand: Brand;
   currentColor: Color;
   currentCustomer: Customer;
@@ -113,5 +115,20 @@ export class BrandComponent implements OnInit {
       this.carDetails = response.data;
       this.dataLoaded = true;
     });
+  }
+  getSelectedBrand(brandId: number) {
+    if (this.brandNumber == brandId) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getSelectedColor(colorId: number) {
+    if (this.colorNumber == colorId) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

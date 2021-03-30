@@ -1,1 +1,79 @@
+<div class="row">
+  <div class="col-md-8">
+    <form>
+      <div class="mb-3">
+        <label for="card-number" class="form-label"
+          >Kart üzerinde yazan Ad Soyad</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="card-number"
+          placeholder=""
+        />
+      </div>
 
+      <div class="mb-3">
+        <label for="card-number" class="form-label">Kart Numarası</label>
+        <input
+          type="text"
+          class="form-control"
+          id="card-number"
+          placeholder=""
+        />
+      </div>
+
+      <div class="row mb-3">
+        <label for="card-number" class="form-label">Geçerlilik Tarihi</label
+        ><br />
+        <div class="col-md-4">
+          <label for="card-number" class="form-label">yıl</label>
+          <select class="form-select" aria-label="Default select example">
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2022">2023</option>
+            <option value="2022">2024</option>
+            <option value="2022">2025</option>
+            <option value="2022">2026</option>
+            <option value="2022">2027</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="card-number" class="form-label">Ay</label>
+          <select class="form-select" aria-label="Default select example">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="2">3</option>
+            <option value="2">4</option>
+            <option value="2">5</option>
+            <option value="2">6</option>
+            <option value="2">7</option>
+            <option value="2">8</option>
+            <option value="2">9</option>
+            <option value="2">10</option>
+            <option value="2">11</option>
+            <option value="2">12</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="card-number" class="form-label">ccv</label>
+          <input
+            type="text"
+            class="form-control"
+            id="card-number"
+            placeholder=""
+          />
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-secondary btn-sm">Ödeme Yap</button>
+    </form>
+  </div>
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
+      <li class="list-group-item">Araba:{{ currentCar?.carName }}</li>
+      <li class="list-group-item">Başlangıç Tarihi : {{ rental?.rentDate }}</li>
+    </ul>
+  </div>
+</div>

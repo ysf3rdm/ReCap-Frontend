@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarDetail } from 'src/app/models/car-detail';
 import { Image } from 'src/app/models/image';
@@ -13,10 +14,10 @@ import { RentalService } from 'src/app/services/rental.service';
   styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
-  carDetails: CarDetail[] = [];
+  carDetails: CarDetail[];
   cardetails$: CarDetail;
-  cars: Car[] = [];
-  images: Image[] = [];
+  cars: Car[];
+  images: Image[];
   filterText = '';
 
   dataLoaded = false;
@@ -24,40 +25,26 @@ export class CarDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private carService: CarService,
     private imageService: ImageService,
-    private rentalService: RentalService
+    private rentalService: RentalService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.dataLoaded = false;
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
         this.getImagesByCarId(params['carId']);
+      } else if (params['brandId'] && params['colorId']) {
+        this.getCarDetailsByBrandIdAndColorId(
+          params['brandId'],
+          params['colorId']
+        );
       } else if (params['brandId']) {
         this.getCarDetailsByBrandId(params['brandId']);
       } else if (params['colorId']) {
         this.getCarDetailsByColorId(params['colorId']);
       } else {
-        this.getImages();
         this.getCarDetails();
       }
-    });
-  }
-  getCarByBrand(brandId: number) {
-    this.carService.getCarDetails().subscribe((response) => {
-      this.carDetails = response.data;
-      this.dataLoaded = true;
-    });
-  }
-  getCars() {
-    this.carService.getCars().subscribe((response) => {
-      this.cars = response.data;
-      this.dataLoaded = true;
-    });
-  }
-  getImages() {
-    this.imageService.getImages().subscribe((response) => {
-      this.images = response.data;
-      this.dataLoaded = true;
     });
   }
   getImagesByCarId(carId: number) {
@@ -90,7 +77,16 @@ export class CarDetailComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
+  getCarDetailsByBrandIdAndColorId(brandId: number, colorId: number) {
+    this.carService
+      .getCarDetailsByColorIdandBrandId(brandId, colorId)
+      .subscribe((response) => {
+        this.carDetails = response.data;
+        this.dataLoaded = true;
+      });
+  }
   addToRental(car: CarDetail) {
     this.rentalService.addToRent(car);
+    this.toastrService.success('Kiralama sayfasına yönlendiriliyorsunuz');
   }
 }
