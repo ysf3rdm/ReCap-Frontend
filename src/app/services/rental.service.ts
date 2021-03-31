@@ -7,6 +7,7 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { Rental } from '../models/rental';
 import { RentItem } from '../models/rentItem';
 import { RentItems } from '../models/rentItems';
+import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +24,8 @@ export class RentalService {
       this.apiUrl + 'rentals/getbycustomerid?customerId=' + customerId;
     return this.httpClient.get<ListResponseModel<Rental>>(newPath);
   }
-  addToRent(car: CarDetail) {
-    let item = RentItems.find((p) => p.car.carId === car.carId);
-    let rentItem = new RentItem();
-    rentItem.car = car;
-    RentItems.push(rentItem);
+  addToRent(rental: Rental): Observable<ResponseModel> {
+    let newPath = 'rentals/add';
+    return this.httpClient.post<ResponseModel>(newPath, rental);
   }
 }

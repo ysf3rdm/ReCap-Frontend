@@ -164,7 +164,7 @@
               <td>{{ carDetail.modelYear }}</td>
               <td>{{ carDetail.colorName }}</td>
               <td>{{ carDetail.description }}</td>
-              <td>{{ carDetail.dailyPrice | currency }}</td>
+              <td>{{ carDetail.dailyPrice | currency: "₺" }}</td>
               <td>
                 <button
                   routerLink="/cars"
@@ -175,20 +175,6 @@
                 </button>
               </td>
               <td>
-                <select
-                  [(ngModel)]="customerId"
-                  class="form-select"
-                  aria-label="Default select example"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option
-                    *ngFor="let customer of customers"
-                    [value]="customer.customerId"
-                  >
-                    {{ customer.companyName }}
-                  </option>
-                </select>
-
                 <button
                   type="button"
                   class="btn btn-outline-success"
@@ -220,69 +206,8 @@
                           aria-label="Close"
                         ></button>
                       </div>
-                      <div class="modal-body">
-                        <form #rentalAddForm="ngForm">
-                          <div class="card" style="width: 20rem">
-                            <mat-form-field appearance="fill">
-                              <mat-label>Alınacak tarih</mat-label>
-                              <input
-                                class="form-control"
-                                style="z-index: 5"
-                                name="rentDate"
-                                [(ngModel)]="rentDate"
-                                matInput
-                                [matDatepicker]="rentdate"
-                              />
-                              <mat-datepicker-toggle
-                                matSuffix
-                                [for]="rentdate"
-                              ></mat-datepicker-toggle>
-                              <mat-datepicker #rentdate></mat-datepicker>
-                            </mat-form-field>
-
-                            <mat-form-field appearance="fill">
-                              <mat-label>Verilecek Tarih</mat-label>
-                              <input
-                                class="form-control z-index:5"
-                                name="returnDate"
-                                [(ngModel)]="returnDate"
-                                matInput
-                                [matDatepicker]="returndate"
-                              />
-                              <mat-datepicker-toggle
-                                matSuffix
-                                [for]="returndate"
-                              ></mat-datepicker-toggle>
-                              <mat-datepicker #returndate></mat-datepicker>
-                            </mat-form-field>
-                            <button
-                              *ngIf="returnDate; rentDate"
-                              (click)="
-                                calculateAmount(
-                                  rentalAddForm.value.rentDate,
-                                  rentalAddForm.value.returnDate
-                                )
-                              "
-                            >
-                              TARİHLERİ SEÇ
-                            </button>
-                            <label>TOPLAM TUTAR : {{ totalPrice }}</label>
-                          </div>
-                        </form>
-                      </div>
                       <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Close
-                        </button>
-                        <app-payment
-                          [rental]="rentalDetail"
-                          [rentDate]="rentalAddForm.value.rentDate"
-                          [returnDate]="rentalAddForm.value.returnDate"
-                        ></app-payment>
+                        <app-payment></app-payment>
                       </div>
                     </div>
                   </div>

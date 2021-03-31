@@ -9,7 +9,6 @@ import { Image } from 'src/app/models/image';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Rental } from 'src/app/models/rental';
-import { RentalDetail } from 'src/app/models/rental-detail';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/app/models/customer';
 
@@ -82,7 +81,6 @@ export class CarComponent implements OnInit {
       (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
     );
     this.totalPrice = this.totalDay * this.carDetails[0].dailyPrice;
-    console.log(this.totalPrice);
     return this.totalPrice, this.totalDay;
   }
   // rent() {

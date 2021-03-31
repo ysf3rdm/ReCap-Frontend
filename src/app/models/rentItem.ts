@@ -1,7 +1,6 @@
-import { Car } from './car';
-import { CarDetail } from './car-detail';
+import { Rental } from './rental';
 
 export class RentItem {
-  car: CarDetail;
+  rental: Rental;
   IsRentable: boolean;
 }

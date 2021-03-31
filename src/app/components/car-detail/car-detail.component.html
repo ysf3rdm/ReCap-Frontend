@@ -39,7 +39,7 @@
       <td>{{ car.carName }}</td>
       <td>{{ car.colorName }}</td>
       <td>{{ car.brandName }}</td>
-      <td>{{ car.dailyPrice | currency }}</td>
+      <td>{{ car.dailyPrice | currency: "₺" }}</td>
       <td>
         <button
           routerLink="/cars/cardetail/{{ car.carId }}"

@@ -1,3 +1,52 @@
+<div class="modal-body">
+  <form [formGroup]="rentalAddForm">
+    <div class="card" style="width: 20rem">
+      <mat-form-field appearance="fill">
+        <mat-label>Alınacak tarih</mat-label>
+        <input
+          class="form-control"
+          name="rentDate"
+          matInput
+          formControlName="rentDate"
+          [matDatepicker]="rentdate"
+          required
+          placeholder="*11/11/2011"
+        />
+        <mat-datepicker #rentdate></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Verilecek Tarih</mat-label>
+        <input
+          class="form-control"
+          name="returnDate"
+          [matDatepicker]="returndate"
+          formControlName="returnDate"
+          matInput
+          required
+          placeholder="*11/11/2011"
+        />
+        <mat-datepicker #returndate></mat-datepicker>
+      </mat-form-field>
+      <button
+        (click)="
+          calculateAmount(
+            rentalAddForm.value.rentDate,
+            rentalAddForm.value.returnDate
+          )
+        "
+        [disabled]="!rentalAddForm.valid"
+      >
+        TARİHLERİ SEÇ
+      </button>
+    </div>
+  </form>
+  <select class="form-select" aria-label="Default select example">
+    <option *ngFor="let customer of customers" (value)="(customer.customerId)">
+      {{ customer.companyName }}
+    </option>
+  </select>
+</div>
 <div class="row">
   <div class="col-md-8">
     <form>
@@ -10,6 +59,7 @@
           class="form-control"
           id="card-number"
           placeholder=""
+          required
         />
       </div>
 
@@ -20,6 +70,7 @@
           class="form-control"
           id="card-number"
           placeholder=""
+          required
         />
       </div>
 
@@ -27,8 +78,12 @@
         <label for="card-number" class="form-label">Geçerlilik Tarihi</label
         ><br />
         <div class="col-md-4">
-          <label for="card-number" class="form-label">yıl</label>
-          <select class="form-select" aria-label="Default select example">
+          <label for="card-number" class="form-label">Yıl</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            required
+          >
             <option value="2021">2021</option>
             <option value="2022">2022</option>
             <option value="2022">2023</option>
@@ -40,7 +95,11 @@
         </div>
         <div class="col-md-4">
           <label for="card-number" class="form-label">Ay</label>
-          <select class="form-select" aria-label="Default select example">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            required
+          >
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="2">3</option>
@@ -56,24 +115,29 @@
           </select>
         </div>
         <div class="col-md-4">
-          <label for="card-number" class="form-label">ccv</label>
+          <label for="card-number" class="form-label">CCV</label>
           <input
             type="text"
             class="form-control"
             id="card-number"
-            placeholder=""
+            placeholder="CCV"
+            required
           />
         </div>
       </div>
 
-      <button type="button" class="btn btn-secondary btn-sm">Ödeme Yap</button>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="pay()">
+        {{ totalPrice | currency: "₺" }} Ödeme Yap
+      </button>
     </form>
   </div>
   <div class="col-md-4">
     <ul class="list-group">
       <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
-      <li class="list-group-item">Araba:{{ currentCar.carName }}</li>
-      <li class="list-group-item">Başlangıç Tarihi : {{ rental?.rentDate }}</li>
+      <li class="list-group-item">Araba:{{ currentCar?.carName }}</li>
+      <li class="list-group-item">Markası:{{ currentCar?.brandName }}</li>
+      <li class="list-group-item">Açıklama:{{ currentCar?.description }}</li>
+      <li class="list-group-item">CarId:{{ currentCar?.carId }}</li>
     </ul>
   </div>
 </div>

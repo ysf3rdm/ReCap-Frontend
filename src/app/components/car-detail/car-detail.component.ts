@@ -85,8 +85,4 @@ export class CarDetailComponent implements OnInit {
         this.dataLoaded = true;
       });
   }
-  addToRental(car: CarDetail) {
-    this.rentalService.addToRent(car);
-    this.toastrService.success('Kiralama sayfasına yönlendiriliyorsunuz');
-  }
 }

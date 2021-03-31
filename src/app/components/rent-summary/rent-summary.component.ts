@@ -5,7 +5,6 @@ import { CarService } from 'src/app/services/car.service';
 import { RentalService } from 'src/app/services/rental.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Rental } from 'src/app/models/rental';
-import { RentalDetail } from 'src/app/models/rental-detail';
 
 @Component({
   selector: 'app-rent-summary',
