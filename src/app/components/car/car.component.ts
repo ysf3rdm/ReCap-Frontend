@@ -68,13 +68,7 @@ export class CarComponent implements OnInit {
       this.customers = response.data;
     });
   }
-  calculateAmount(rentDate: Date, returnDate: Date): Number {
-    this.totalDay = Math.floor(
-      (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
-    );
-    this.totalPrice = this.totalDay * this.carDetails[0].dailyPrice;
-    return this.totalPrice, this.totalDay;
-  }
+
   createRentalAddForm() {
     this.rentalAddForm = this.formBuilder.group({
       customerId: ['', Validators.required],
@@ -83,22 +77,31 @@ export class CarComponent implements OnInit {
       returnDate: [''],
     });
   }
-  rent() {
-    if (this.rentDate && this.returnDate && this.returnDate > this.rentDate) {
-      this.rentalDetail = {
-        rentDate: this.rentalAddForm.value.rentDate,
-        returnDate: this.rentalAddForm.value.returnDate,
-        customerId: Number(this.customerId),
-        carId: 1,
-        totalPrice: this.totalPrice,
-      };
-      console.log(this.rentDate);
-      this.toastrService.success('Ödeme Sayfasına Yönlendirliyorsununuz');
-      return true;
-    } else {
-      this.toastrService.error('Tarih Hatalı');
-
-      return false;
-    }
+  calculateAmount(rentDate: Date, returnDate: Date): Number {
+    this.totalDay = Math.floor(
+      (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
+    );
+    this.totalPrice = this.totalDay * this.carDetails[0].dailyPrice;
+    console.log(this.totalPrice);
+    return this.totalPrice, this.totalDay;
   }
+  // rent() {
+  //   if (this.returnDate > this.rentDate) {
+  //     this.rentalDetail = {
+  //       rentDate: this.rentalAddForm.value.rentDate,
+  //       returnDate: this.rentalAddForm.value.returnDate,
+  //       customerId: Number(this.customerId),
+  //       carId: 1,
+  //       totalPrice: this.totalPrice,
+  //     };
+  //     console.log(this.rentDate);
+  //     this.toastrService.success('Ödeme Sayfasına Yönlendirliyorsununuz');
+  //     return true;
+  //   } else {
+  //     this.toastrService.error('Tarih Hatalı');
+  //     console.log(this.rentDate);
+
+  //     return false;
+  //   }
+  // }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CarDetail } from 'src/app/models/car-detail';
 import { CarService } from 'src/app/services/car.service';
@@ -17,17 +17,19 @@ export class RentSummaryComponent implements OnInit {
     private rentalService: RentalService,
     private activatedRoute: ActivatedRoute,
     private carService: CarService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgModule
   ) {}
+  totalDay: number;
+  rentDate: Date;
   returnDate: Date;
   totalPrice: number;
   rentalAddForm: FormGroup;
   carId: number;
-  @Input() rental: Rental;
-  rentalDetails: Rental;
   currentCar: CarDetail;
   dataLoaded = false;
   ngOnInit(): void {
+    this.createRentalAddForm();
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
         this.getCarDetailsByCarId(params['carId']);
@@ -40,7 +42,18 @@ export class RentSummaryComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
-  getRentalDetails() {
-    this.rentalDetails = this.rental;
+
+  getDates() {
+    this.rentDate = this.rentalAddForm.value.rentDate;
+    this.returnDate = this.rentalAddForm.value.returnDate;
+    console.log(this.rentDate);
+  }
+  createRentalAddForm() {
+    this.rentalAddForm = this.fb.group({
+      customerId: ['', Validators.required],
+      rentDate: ['', Validators.required],
+      carId: [''],
+      returnDate: [''],
+    });
   }
 }

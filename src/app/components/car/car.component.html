@@ -175,52 +175,6 @@
                 </button>
               </td>
               <td>
-                <form #rentalAddForm="ngForm">
-                  <div class="card" style="width: 20rem">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Alınacak tarih</mat-label>
-                      <input
-                        class="form-control"
-                        name="rentDate"
-                        [(ngModel)]="rentDate"
-                        matInput
-                        [matDatepicker]="rentdate"
-                      />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="rentdate"
-                      ></mat-datepicker-toggle>
-                      <mat-datepicker #rentdate></mat-datepicker>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill">
-                      <mat-label>Verilecek Tarih</mat-label>
-                      <input
-                        class="form-control"
-                        name="returnDate"
-                        [(ngModel)]="returnDate"
-                        matInput
-                        [matDatepicker]="returndate"
-                      />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="returndate"
-                      ></mat-datepicker-toggle>
-                      <mat-datepicker #returndate></mat-datepicker>
-                    </mat-form-field>
-                    <button
-                      (click)="
-                        calculateAmount(
-                          rentalAddForm.value.rentDate,
-                          rentalAddForm.value.returnDate
-                        )
-                      "
-                    >
-                      HESAPLA
-                    </button>
-                    <td>{{ totalDay }} gün için {{ totalPrice }} TL</td>
-                  </div>
-                </form>
                 <select
                   [(ngModel)]="customerId"
                   class="form-select"
@@ -242,7 +196,6 @@
                   data-bs-target="#rentalModal"
                   id="ceren"
                   style="float: right"
-                  (click)="rent()"
                 >
                   Kirala
                 </button>
@@ -258,7 +211,7 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="rentalModalLabel">
-                          Araç Kiralama
+                          ÖDEME SAYFASI
                         </h5>
                         <button
                           type="button"
@@ -267,7 +220,56 @@
                           aria-label="Close"
                         ></button>
                       </div>
-                      <div class="modal-body"></div>
+                      <div class="modal-body">
+                        <form #rentalAddForm="ngForm">
+                          <div class="card" style="width: 20rem">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Alınacak tarih</mat-label>
+                              <input
+                                class="form-control"
+                                style="z-index: 5"
+                                name="rentDate"
+                                [(ngModel)]="rentDate"
+                                matInput
+                                [matDatepicker]="rentdate"
+                              />
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="rentdate"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #rentdate></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                              <mat-label>Verilecek Tarih</mat-label>
+                              <input
+                                class="form-control z-index:5"
+                                name="returnDate"
+                                [(ngModel)]="returnDate"
+                                matInput
+                                [matDatepicker]="returndate"
+                              />
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="returndate"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #returndate></mat-datepicker>
+                            </mat-form-field>
+                            <button
+                              *ngIf="returnDate; rentDate"
+                              (click)="
+                                calculateAmount(
+                                  rentalAddForm.value.rentDate,
+                                  rentalAddForm.value.returnDate
+                                )
+                              "
+                            >
+                              TARİHLERİ SEÇ
+                            </button>
+                            <label>TOPLAM TUTAR : {{ totalPrice }}</label>
+                          </div>
+                        </form>
+                      </div>
                       <div class="modal-footer">
                         <button
                           type="button"
@@ -276,9 +278,11 @@
                         >
                           Close
                         </button>
-                        <app-rent-summary
+                        <app-payment
                           [rental]="rentalDetail"
-                        ></app-rent-summary>
+                          [rentDate]="rentalAddForm.value.rentDate"
+                          [returnDate]="rentalAddForm.value.returnDate"
+                        ></app-payment>
                       </div>
                     </div>
                   </div>

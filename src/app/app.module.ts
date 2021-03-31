@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     RentSummaryComponent,
     ColorFilterPipe,
     BrandFilterPipe,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
