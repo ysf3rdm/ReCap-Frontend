@@ -42,11 +42,12 @@
     </div>
     <label>MÜŞTERİ NUMARASI</label>
     <select
-      [(ngModel)]="customerSelected"
+      [(ngModel)]="+customerSelected"
       class="form-select"
       aria-label="Default select example"
       id="customerSelect"
       [ngModelOptions]="{ standalone: true }"
+      required
     >
       <option
         *ngFor="let customer of customers"
@@ -65,6 +66,8 @@
           >Kart üzerinde yazan Ad Soyad</label
         >
         <input
+          [(ngModel)]="holderName"
+          [ngModelOptions]="{ standalone: true }"
           type="text"
           class="form-control"
           id="card-number"
@@ -76,6 +79,8 @@
       <div class="mb-3">
         <label for="card-number" class="form-label">Kart Numarası</label>
         <input
+          [(ngModel)]="cardNumber"
+          [ngModelOptions]="{ standalone: true }"
           type="text"
           class="form-control"
           id="card-number"
@@ -90,43 +95,50 @@
         <div class="col-md-4">
           <label for="card-number" class="form-label">Yıl</label>
           <select
+            [(ngModel)]="expirationYear"
+            [ngModelOptions]="{ standalone: true }"
             class="form-select"
             aria-label="Default select example"
             required
           >
             <option value="2021">2021</option>
             <option value="2022">2022</option>
-            <option value="2022">2023</option>
-            <option value="2022">2024</option>
-            <option value="2022">2025</option>
-            <option value="2022">2026</option>
-            <option value="2022">2027</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
           </select>
         </div>
         <div class="col-md-4">
           <label for="card-number" class="form-label">Ay</label>
           <select
+            [(ngModel)]="expirationMonth"
             class="form-select"
             aria-label="Default select example"
             required
+            [ngModelOptions]="{ standalone: true }"
           >
             <option value="1">1</option>
             <option value="2">2</option>
-            <option value="2">3</option>
-            <option value="2">4</option>
-            <option value="2">5</option>
-            <option value="2">6</option>
-            <option value="2">7</option>
-            <option value="2">8</option>
-            <option value="2">9</option>
-            <option value="2">10</option>
-            <option value="2">11</option>
-            <option value="2">12</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
           </select>
         </div>
         <div class="col-md-4">
           <label for="card-number" class="form-label">CCV</label>
           <input
+            [(ngModel)]="ccv"
+            [ngModelOptions]="{ standalone: true }"
             type="text"
             class="form-control"
             id="card-number"
@@ -148,7 +160,7 @@
       <li class="list-group-item">Markası:{{ currentCar?.brandName }}</li>
       <li class="list-group-item">Açıklama:{{ currentCar?.description }}</li>
       <li class="list-group-item">CarId:{{ currentCar?.carId }}</li>
-      <li class="list-group-item">customerId:{{ customerSelected }}</li>
+      <li class="list-group-item">customerId:{{ +customerSelected }}</li>
     </ul>
   </div>
 </div>

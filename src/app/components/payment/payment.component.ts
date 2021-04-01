@@ -5,9 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/car-detail';
+import { CreditCard } from 'src/app/models/creditCard';
 import { Customer } from 'src/app/models/customer';
+import { PaymentDetail } from 'src/app/models/paymentDetail';
 import { Rental } from 'src/app/models/rental';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -32,13 +35,22 @@ export class PaymentComponent implements OnInit {
   totalPrice: number;
   rental: Rental;
   customerSelected: number;
+  expirationMonth: number;
+  expirationYear: number;
+  ccv: string;
+  cardNumber: string;
+  holderName: string;
+  paymentDetail: PaymentDetail;
+  creditCard: CreditCard;
 
   constructor(
     private carService: CarService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
-    private rentalService: RentalService
+    private rentalService: RentalService,
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -68,18 +80,36 @@ export class PaymentComponent implements OnInit {
     return this.totalPrice, this.totalDay;
   }
   pay() {
-    if (this.rentalAddForm.value.returnDate < Date.now) {
-      console.log('dönüş tarihi hatalı');
-    }
     let rental: Rental = {
       carId: this.currentCar.carId,
-      customerId: this.customerSelected,
+      customerId: +this.customerSelected,
       rentDate: this.rentalAddForm.value.rentDate,
       returnDate: this.rentalAddForm.value.returnDate,
       totalPrice: this.totalPrice,
     };
-    this.rentalService.addToRent(rental).subscribe((response) => {
+    let creditCard: CreditCard = {
+      cardNumber: this.cardNumber,
+      holderName: this.holderName,
+      cvv: this.ccv,
+      expirationYear: +this.expirationYear,
+      expirationMonth: +this.expirationMonth,
+    };
+    let paymentDetail = {
+      creditCard: creditCard,
+      rental: rental,
+    };
+    console.log(paymentDetail);
+    this.rentalService.addToRent(paymentDetail).subscribe((response) => {
       console.log(response);
+      this.toastrService.success(
+        'Ana sayfaya yönlendiriliyorsunuz',
+        'ödeme tamamlandı'
+      );
+      this.router.navigate(['/']).then(() =>
+        setTimeout(function () {
+          window.location.reload();
+        }, 1200)
+      );
     });
   }
 }

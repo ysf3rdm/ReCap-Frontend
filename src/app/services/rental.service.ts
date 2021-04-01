@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Car } from '../models/car';
 import { CarDetail } from '../models/car-detail';
 import { ListResponseModel } from '../models/listResponseModel';
+import { PaymentDetail } from '../models/paymentDetail';
 import { Rental } from '../models/rental';
 import { RentItem } from '../models/rentItem';
 import { RentItems } from '../models/rentItems';
@@ -24,8 +25,8 @@ export class RentalService {
       this.apiUrl + 'rentals/getbycustomerid?customerId=' + customerId;
     return this.httpClient.get<ListResponseModel<Rental>>(newPath);
   }
-  addToRent(rental: Rental): Observable<ResponseModel> {
+  addToRent(paymentDetail: PaymentDetail): Observable<ResponseModel> {
     let newPath = this.apiUrl + 'rentals/add';
-    return this.httpClient.post<ResponseModel>(newPath, rental);
+    return this.httpClient.post<ResponseModel>(newPath, paymentDetail);
   }
 }
