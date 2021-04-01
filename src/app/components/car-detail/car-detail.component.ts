@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Car } from 'src/app/models/car';
 import { CarDetail } from 'src/app/models/car-detail';
 import { Image } from 'src/app/models/image';
 import { CarService } from 'src/app/services/car.service';
@@ -16,7 +15,6 @@ import { RentalService } from 'src/app/services/rental.service';
 export class CarDetailComponent implements OnInit {
   carDetails: CarDetail[];
   cardetails$: CarDetail;
-  cars: Car[];
   images: Image[];
   filterText = '';
 

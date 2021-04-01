@@ -79,7 +79,15 @@ export class PaymentComponent implements OnInit {
     if (
       this.rentalAddForm.value.rentDate > this.rentalAddForm.value.returnDate
     ) {
-      this.toastrService.error('Tarihleri Kontrol Edin', 'Tarih Hatası');
+      this.toastrService.error(
+        'Teslim tarihi iade tarihinden önce olamaz',
+        'Tarih Hatası'
+      );
+    } else if (this.rentalAddForm.value.rentDate < Date.now()) {
+      this.toastrService.error(
+        'Bugünden daha önce bir tarih seçemezsiniz',
+        'Tarih Hatası'
+      );
     } else {
       this.toastrService.success('Tarihler Seçildi', 'Başarılı');
       this.totalDay = Math.floor(
@@ -90,36 +98,46 @@ export class PaymentComponent implements OnInit {
     }
   }
   pay() {
-    let rental: Rental = {
-      carId: this.currentCar.carId,
-      customerId: +this.customerSelected,
-      rentDate: this.rentalAddForm.value.rentDate,
-      returnDate: this.rentalAddForm.value.returnDate,
-      totalPrice: this.totalPrice,
-    };
-    let creditCard: CreditCard = {
-      cardNumber: this.rentalAddForm.value.cardNumber,
-      holderName: this.rentalAddForm.value.holderName,
-      cvv: this.ccv,
-      expirationYear: +this.expirationYear,
-      expirationMonth: +this.expirationMonth,
-    };
-    let paymentDetail = {
-      creditCard: creditCard,
-      rental: rental,
-    };
-    console.log(paymentDetail);
-    this.rentalService.addToRent(paymentDetail).subscribe((response) => {
-      console.log(response);
-      this.toastrService.success(
-        'Ana sayfaya yönlendiriliyorsunuz',
-        'ödeme tamamlandı'
+    if (+this.rentalAddForm.value.cvv == null) {
+      this.toastrService.error('CVV boş bırakılamaz', 'HATA');
+    } else if (+this.rentalAddForm.value.expirationMonth) {
+      this.toastrService.error('Son kullanma ayı boş bırakılamaz', 'HATA');
+    } else if (+this.rentalAddForm.value.expirationYear == null) {
+      this.toastrService.error('Son kullanma yılı boş bırakılamaz', 'HATA');
+    } else {
+      let rental: Rental = {
+        carId: this.currentCar.carId,
+        customerId: +this.customerSelected,
+        rentDate: this.rentalAddForm.value.rentDate,
+        returnDate: this.rentalAddForm.value.returnDate,
+        totalPrice: this.totalPrice,
+      };
+      let creditCard: CreditCard = {
+        cardNumber: this.rentalAddForm.value.cardNumber.toString(),
+        holderName: this.rentalAddForm.value.holderName,
+        cvv: this.ccv.toString(),
+        expirationYear: +this.expirationYear,
+        expirationMonth: +this.expirationMonth,
+      };
+      let paymentDetail = {
+        creditCard: creditCard,
+        rental: rental,
+      };
+      console.log(paymentDetail);
+      this.rentalService.addToRent(paymentDetail).subscribe(
+        (response) => {
+          console.log(response);
+          this.toastrService.success(response.message, 'Başarılı');
+          // this.router.navigate(['/']).then(() =>
+          //   setTimeout(function () {
+          //     window.location.reload();
+          //   }, 500)
+          // );
+        },
+        (errorResponse) => {
+          this.toastrService.error(errorResponse.error.message, 'HATA');
+        }
       );
-      this.router.navigate(['/']).then(() =>
-        setTimeout(function () {
-          window.location.reload();
-        }, 800)
-      );
-    });
+    }
   }
 }
