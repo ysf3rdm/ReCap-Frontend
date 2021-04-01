@@ -10,8 +10,9 @@
     <tr>
       <th>Car Id</th>
       <th>Customer Id</th>
-      <th>rent Date</th>
-      <th>return date</th>
+      <th>Kiralama Tarihi</th>
+      <th>Dönüş Tarihi</th>
+      <th>Toplam Ücret</th>
     </tr>
   </thead>
   <tr *ngFor="let rental of rentals">
@@ -19,5 +20,6 @@
     <td>{{ rental.customerId }}</td>
     <td>{{ rental.rentDate }}</td>
     <td>{{ rental.returnDate }}</td>
+    <td>{{ rental.totalPrice | currency: "₺" }}</td>
   </tr>
 </table>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from 'src/app/models/car';
 import { CarService } from 'src/app/services/car.service';
 import { ActivatedRoute } from '@angular/router';
 import { CarDetail } from 'src/app/models/car-detail';
@@ -28,7 +27,6 @@ export class CarComponent implements OnInit {
   totalPrice: number;
   returnDate: Date;
   currentCar: CarDetail;
-  carDetails: CarDetail[] = [];
   images: Image[] = [];
   dataLoaded = false;
   rentalDetail: Rental;
@@ -52,7 +50,7 @@ export class CarComponent implements OnInit {
   }
   getCarDetailsByCarId(carId: number) {
     this.carService.getCarDetailsByCarId(carId).subscribe((response) => {
-      this.carDetails = response.data;
+      this.currentCar = response.data[0];
       this.dataLoaded = true;
     });
   }
@@ -76,30 +74,4 @@ export class CarComponent implements OnInit {
       returnDate: [''],
     });
   }
-  calculateAmount(rentDate: Date, returnDate: Date): Number {
-    this.totalDay = Math.floor(
-      (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
-    );
-    this.totalPrice = this.totalDay * this.carDetails[0].dailyPrice;
-    return this.totalPrice, this.totalDay;
-  }
-  // rent() {
-  //   if (this.returnDate > this.rentDate) {
-  //     this.rentalDetail = {
-  //       rentDate: this.rentalAddForm.value.rentDate,
-  //       returnDate: this.rentalAddForm.value.returnDate,
-  //       customerId: Number(this.customerId),
-  //       carId: 1,
-  //       totalPrice: this.totalPrice,
-  //     };
-  //     console.log(this.rentDate);
-  //     this.toastrService.success('Ödeme Sayfasına Yönlendirliyorsununuz');
-  //     return true;
-  //   } else {
-  //     this.toastrService.error('Tarih Hatalı');
-  //     console.log(this.rentDate);
-
-  //     return false;
-  //   }
-  // }
 }

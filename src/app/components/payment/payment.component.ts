@@ -76,11 +76,18 @@ export class PaymentComponent implements OnInit {
     });
   }
   calculateAmount(rentDate: Date, returnDate: Date) {
-    this.totalDay = Math.floor(
-      (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
-    );
-    this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
-    this.baba = true;
+    if (
+      this.rentalAddForm.value.rentDate > this.rentalAddForm.value.returnDate
+    ) {
+      this.toastrService.error('Tarihleri Kontrol Edin', 'Tarih Hatası');
+    } else {
+      this.toastrService.success('Tarihler Seçildi', 'Başarılı');
+      this.totalDay = Math.floor(
+        (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
+      );
+      this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
+      this.baba = true;
+    }
   }
   pay() {
     let rental: Rental = {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Payment } from '../models/payment';
+import { PaymentDetail } from '../models/paymentDetail';
 import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class PaymentService {
 
   constructor(private httpClient: HttpClient) {}
 
-  addPayment(payment: Payment): Observable<ResponseModel> {
+  addPayment(payment: PaymentDetail): Observable<ResponseModel> {
     let newPath = this.apiUrl + '/payments/add';
     return this.httpClient.post<ResponseModel>(newPath, payment);
   }
