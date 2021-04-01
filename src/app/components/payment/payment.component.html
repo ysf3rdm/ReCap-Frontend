@@ -40,12 +40,22 @@
         TARİHLERİ SEÇ
       </button>
     </div>
+    <label>MÜŞTERİ NUMARASI</label>
+    <select
+      [(ngModel)]="customerSelected"
+      class="form-select"
+      aria-label="Default select example"
+      id="customerSelect"
+      [ngModelOptions]="{ standalone: true }"
+    >
+      <option
+        *ngFor="let customer of customers"
+        (value)="(customer.customerId)"
+      >
+        {{ customer.customerId }}
+      </option>
+    </select>
   </form>
-  <select class="form-select" aria-label="Default select example">
-    <option *ngFor="let customer of customers" (value)="(customer.customerId)">
-      {{ customer.companyName }}
-    </option>
-  </select>
 </div>
 <div class="row">
   <div class="col-md-8">
@@ -138,6 +148,7 @@
       <li class="list-group-item">Markası:{{ currentCar?.brandName }}</li>
       <li class="list-group-item">Açıklama:{{ currentCar?.description }}</li>
       <li class="list-group-item">CarId:{{ currentCar?.carId }}</li>
+      <li class="list-group-item">customerId:{{ customerSelected }}</li>
     </ul>
   </div>
 </div>

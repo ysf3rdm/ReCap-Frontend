@@ -31,6 +31,7 @@ export class PaymentComponent implements OnInit {
   totalDay: number;
   totalPrice: number;
   rental: Rental;
+  customerSelected: number;
 
   constructor(
     private carService: CarService,
@@ -67,13 +68,18 @@ export class PaymentComponent implements OnInit {
     return this.totalPrice, this.totalDay;
   }
   pay() {
+    if (this.rentalAddForm.value.returnDate < Date.now) {
+      console.log('dönüş tarihi hatalı');
+    }
     let rental: Rental = {
-      carId: this.currentCar.dailyPrice,
-      customerId: this.customers[0].customerId,
+      carId: this.currentCar.carId,
+      customerId: this.customerSelected,
       rentDate: this.rentalAddForm.value.rentDate,
       returnDate: this.rentalAddForm.value.returnDate,
       totalPrice: this.totalPrice,
     };
-    this.rentalService.addToRent(rental);
+    this.rentalService.addToRent(rental).subscribe((response) => {
+      console.log(response);
+    });
   }
 }
