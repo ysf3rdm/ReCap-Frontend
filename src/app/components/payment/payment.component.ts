@@ -25,6 +25,8 @@ export class PaymentComponent implements OnInit {
   rentalAddForm = new FormGroup({
     rentDate: new FormControl(''),
     returnDate: new FormControl(''),
+    holderName: new FormControl(''),
+    cardNumber: new FormControl(''),
   });
   customers: Customer[];
   rentDate: Date;
@@ -42,6 +44,7 @@ export class PaymentComponent implements OnInit {
   holderName: string;
   paymentDetail: PaymentDetail;
   creditCard: CreditCard;
+  baba = false;
 
   constructor(
     private carService: CarService,
@@ -72,12 +75,12 @@ export class PaymentComponent implements OnInit {
       this.customers = response.data;
     });
   }
-  calculateAmount(rentDate: Date, returnDate: Date): Number {
+  calculateAmount(rentDate: Date, returnDate: Date) {
     this.totalDay = Math.floor(
       (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
     );
     this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
-    return this.totalPrice, this.totalDay;
+    this.baba = true;
   }
   pay() {
     let rental: Rental = {
@@ -88,8 +91,8 @@ export class PaymentComponent implements OnInit {
       totalPrice: this.totalPrice,
     };
     let creditCard: CreditCard = {
-      cardNumber: this.cardNumber,
-      holderName: this.holderName,
+      cardNumber: this.rentalAddForm.value.cardNumber,
+      holderName: this.rentalAddForm.value.holderName,
       cvv: this.ccv,
       expirationYear: +this.expirationYear,
       expirationMonth: +this.expirationMonth,
@@ -108,7 +111,7 @@ export class PaymentComponent implements OnInit {
       this.router.navigate(['/']).then(() =>
         setTimeout(function () {
           window.location.reload();
-        }, 1200)
+        }, 800)
       );
     });
   }

@@ -1,6 +1,6 @@
 <div class="modal-body">
   <form [formGroup]="rentalAddForm">
-    <div class="card" style="width: 20rem">
+    <div class="card" style="width: 30rem">
       <mat-form-field appearance="fill">
         <mat-label>Alınacak tarih</mat-label>
         <input
@@ -8,11 +8,14 @@
           name="rentDate"
           matInput
           formControlName="rentDate"
-          [matDatepicker]="rentdate"
+          [matDatepicker]="picker"
           required
           placeholder="*11/11/2011"
-        />
-        <mat-datepicker #rentdate></mat-datepicker>
+        /><mat-datepicker-toggle
+          matSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -20,13 +23,16 @@
         <input
           class="form-control"
           name="returnDate"
-          [matDatepicker]="returndate"
+          [matDatepicker]="picker2"
           formControlName="returnDate"
           matInput
           required
           placeholder="*11/11/2011"
-        />
-        <mat-datepicker #returndate></mat-datepicker>
+        /><mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
       <button
         (click)="
@@ -35,13 +41,13 @@
             rentalAddForm.value.returnDate
           )
         "
-        [disabled]="!rentalAddForm.valid"
       >
         TARİHLERİ SEÇ
       </button>
     </div>
     <label>MÜŞTERİ NUMARASI</label>
     <select
+      style="width: 30rem"
       [(ngModel)]="+customerSelected"
       class="form-select"
       aria-label="Default select example"
@@ -56,111 +62,114 @@
         {{ customer.customerId }}
       </option>
     </select>
-  </form>
-</div>
-<div class="row">
-  <div class="col-md-8">
-    <form>
-      <div class="mb-3">
-        <label for="card-number" class="form-label"
-          >Kart üzerinde yazan Ad Soyad</label
-        >
-        <input
-          [(ngModel)]="holderName"
-          [ngModelOptions]="{ standalone: true }"
-          type="text"
-          class="form-control"
-          id="card-number"
-          placeholder=""
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label for="card-number" class="form-label">Kart Numarası</label>
-        <input
-          [(ngModel)]="cardNumber"
-          [ngModelOptions]="{ standalone: true }"
-          type="text"
-          class="form-control"
-          id="card-number"
-          placeholder=""
-          required
-        />
-      </div>
-
-      <div class="row mb-3">
-        <label for="card-number" class="form-label">Geçerlilik Tarihi</label
-        ><br />
-        <div class="col-md-4">
-          <label for="card-number" class="form-label">Yıl</label>
-          <select
-            [(ngModel)]="expirationYear"
-            [ngModelOptions]="{ standalone: true }"
-            class="form-select"
-            aria-label="Default select example"
-            required
+    <div class="row">
+      <div class="col-md-8">
+        <div class="mb-3">
+          <label for="card-number" class="form-label"
+            >Kart üzerinde yazan Ad Soyad</label
           >
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
-            <option value="2027">2027</option>
-            <option value="2028">2028</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="card-number" class="form-label">Ay</label>
-          <select
-            [(ngModel)]="expirationMonth"
-            class="form-select"
-            aria-label="Default select example"
-            required
-            [ngModelOptions]="{ standalone: true }"
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="card-number" class="form-label">CCV</label>
           <input
-            [(ngModel)]="ccv"
-            [ngModelOptions]="{ standalone: true }"
+            formControlName="holderName"
             type="text"
             class="form-control"
             id="card-number"
-            placeholder="CCV"
+            placeholder=""
             required
           />
         </div>
-      </div>
 
-      <button type="button" class="btn btn-secondary btn-sm" (click)="pay()">
-        {{ totalPrice | currency: "₺" }} Ödeme Yap
-      </button>
-    </form>
-  </div>
-  <div class="col-md-4">
-    <ul class="list-group">
-      <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
-      <li class="list-group-item">Araba:{{ currentCar?.carName }}</li>
-      <li class="list-group-item">Markası:{{ currentCar?.brandName }}</li>
-      <li class="list-group-item">Açıklama:{{ currentCar?.description }}</li>
-      <li class="list-group-item">CarId:{{ currentCar?.carId }}</li>
-      <li class="list-group-item">customerId:{{ +customerSelected }}</li>
-    </ul>
-  </div>
+        <div class="mb-3">
+          <label for="card-number" class="form-label">Kart Numarası</label>
+          <input
+            formControlName="cardNumber"
+            type="text"
+            class="form-control"
+            id="card-number"
+            placeholder=""
+            required
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label for="card-number" class="form-label">Geçerlilik Tarihi</label
+          ><br />
+          <div class="col-md-4">
+            <label for="card-number" class="form-label">Yıl</label>
+            <select
+              [(ngModel)]="expirationYear"
+              [ngModelOptions]="{ standalone: true }"
+              class="form-select"
+              aria-label="Default select example"
+              required
+            >
+              <option value="2021">21</option>
+              <option value="2022">22</option>
+              <option value="2023">23</option>
+              <option value="2024">24</option>
+              <option value="2025">25</option>
+              <option value="2026">26</option>
+              <option value="2027">27</option>
+              <option value="2028">28</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="card-number" class="form-label">Ay</label>
+            <select
+              [(ngModel)]="expirationMonth"
+              class="form-select"
+              aria-label="Default select example"
+              required
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="card-number" class="form-label">CCV</label>
+            <input
+              [(ngModel)]="ccv"
+              [ngModelOptions]="{ standalone: true }"
+              type="text"
+              class="form-control"
+              id="card-number"
+              placeholder="CCV"
+              required
+            />
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-success btn-sm"
+          [disabled]="!rentalAddForm.valid && !baba"
+          (click)="pay()"
+        >
+          {{ totalPrice | currency: "₺" }} Ödeme Yap
+        </button>
+      </div>
+      <div class="col-md-4">
+        <ul class="list-group">
+          <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
+          <li class="list-group-item">Araba:{{ currentCar?.carName }}</li>
+          <li class="list-group-item">Markası:{{ currentCar?.brandName }}</li>
+          <li class="list-group-item">
+            Açıklama:{{ currentCar?.description }}
+          </li>
+          <li class="list-group-item">CarId:{{ currentCar?.carId }}</li>
+          <li class="list-group-item">customerId:{{ +customerSelected }}</li>
+        </ul>
+      </div>
+    </div>
+  </form>
 </div>
