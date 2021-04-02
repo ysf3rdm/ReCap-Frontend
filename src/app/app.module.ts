@@ -28,6 +28,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PaymentComponent } from './components/payment/payment.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { ColorAddComponent } from './components/color-add/color-add.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { PaymentComponent } from './components/payment/payment.component';
     ColorFilterPipe,
     BrandFilterPipe,
     PaymentComponent,
+    CarAddComponent,
+    BrandAddComponent,
+    ColorAddComponent,
   ],
   imports: [
     BrowserModule,

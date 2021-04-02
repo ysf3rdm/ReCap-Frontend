@@ -77,10 +77,10 @@ export class PaymentComponent implements OnInit {
   }
   calculateAmount(rentDate: Date, returnDate: Date) {
     if (
-      this.rentalAddForm.value.rentDate > this.rentalAddForm.value.returnDate
+      this.rentalAddForm.value.rentDate >= this.rentalAddForm.value.returnDate
     ) {
       this.toastrService.error(
-        'Teslim tarihi iade tarihinden önce olamaz',
+        'Teslim tarihi iade tarihinden önce veya aynı olamaz',
         'Tarih Hatası'
       );
     } else if (this.rentalAddForm.value.rentDate < Date.now()) {
@@ -93,6 +93,7 @@ export class PaymentComponent implements OnInit {
       this.totalDay = Math.floor(
         (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
       );
+      console.log(this.rentalAddForm.value.rentDate);
       this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
       this.baba = true;
     }
