@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
 import { CarDetailComponent } from './components/car-detail/car-detail.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'cars/color/:colorId', component: CarDetailComponent },
   { path: 'cars/customer/:customerId', component: CarComponent },
   { path: 'cars/rental/:customerId', component: RentalComponent },
+  { path: 'cars/rentals', component: RentalComponent },
   { path: 'cars/cardetail/:carId', component: CarComponent },
   { path: 'cars/cardetail/:brandId', component: CarDetailComponent },
   { path: 'cars/cardetail/:colorId', component: CarDetailComponent },
@@ -26,6 +28,7 @@ const routes: Routes = [
   { path: 'cars/payment/:carId', component: PaymentComponent },
   { path: 'cars/brandAdd', component: BrandAddComponent },
   { path: 'cars/colorAdd', component: ColorAddComponent },
+  { path: 'cars/carAdd', component: CarAddComponent },
 ];
 
 @NgModule({

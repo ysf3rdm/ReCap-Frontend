@@ -19,6 +19,18 @@
 <div *ngIf="filterText" class="alert alert-success">
   {{ filterText }} aradınız
 </div>
+<div>
+  <button
+    class="btn btn-outline-primary mr-2"
+    ngbAutofocus
+    routerLink="/cars/carAdd"
+  >
+    Araba Ekle
+  </button>
+</div>
+<div>
+  <label></label>
+</div>
 <table
   *ngIf="dataLoaded == true"
   class="table table-responsive-md table-striped table-hover table-bordered"

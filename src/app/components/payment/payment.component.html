@@ -161,13 +161,17 @@
       <div class="col-md-4">
         <ul class="list-group">
           <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
-          <li class="list-group-item">Araba:{{ currentCar?.carName }}</li>
-          <li class="list-group-item">Markası:{{ currentCar?.brandName }}</li>
+          <li class="list-group-item">Araba: {{ currentCar?.carName }}</li>
+          <li class="list-group-item">Markası: {{ currentCar?.brandName }}</li>
           <li class="list-group-item">
-            Açıklama:{{ currentCar?.description }}
+            Açıklama: {{ currentCar?.description }}
           </li>
-          <li class="list-group-item">CarId:{{ currentCar?.carId }}</li>
-          <li class="list-group-item">customerId:{{ +customerSelected }}</li>
+          <li class="list-group-item">
+            Günlük Ücret: {{ currentCar?.dailyPrice | currency: "₺" }}
+          </li>
+          <li class="list-group-item">
+            Müşteri Numarası: {{ +customerSelected }}
+          </li>
         </ul>
       </div>
     </div>

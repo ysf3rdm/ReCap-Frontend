@@ -26,12 +26,22 @@
 <div class="col-sm-3">
   <a
     type="button"
-    class="btn btn-primary"
+    class="btn btn-outline-primary mr-2"
+    ngbAutofocus
+    routerLink="/cars/brandAdd"
     routerLink="/cars/filter/{{ brandNumber }}/{{ colorNumber }}"
     >Filtrele</a
   >
 </div>
-<div><a routerLink="/cars" class="btn btn-success">Tümünü Göster</a></div>
+<div>
+  <a
+    routerLink="/cars"
+    class="btn btn-outline-success mr-2"
+    ngbAutofocus
+    routerLink="/cars"
+    >Tümünü Göster</a
+  >
+</div>
 
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
@@ -127,7 +137,7 @@
               [(ngModel)]="filterText"
               class="form-control"
               id="filterText"
-              placeholder="arama ifadesi giriniz"
+              placeholder="Renk Ara"
             />
           </div>
 
