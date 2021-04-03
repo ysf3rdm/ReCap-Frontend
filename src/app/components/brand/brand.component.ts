@@ -78,6 +78,9 @@ export class BrandComponent implements OnInit {
       return 'list-group-item';
     }
   }
+  setCurrentColorEmpty() {
+    this.currentColor = null;
+  }
   getAllColorsClass() {
     if (!this.currentColor) {
       return 'list-group-item active';

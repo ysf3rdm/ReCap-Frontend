@@ -20,4 +20,16 @@ export class BrandService {
     let newPath = this.apiUrl + 'brands/add';
     return this.httpClient.post<ResponseModel>(newPath, brand);
   }
+  delete(brand: Brand): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'brands/delete';
+    return this.httpClient.post<ResponseModel>(newPath, brand);
+  }
+  updateBrand(brand: Brand): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'brands/update';
+    return this.httpClient.post<ResponseModel>(newPath, brand);
+  }
+  getBrandByBrandId(brandId: number): Observable<ListResponseModel<Brand>> {
+    let newPath = this.apiUrl + 'brands/getbrandbybrandid?Id=' + brandId;
+    return this.httpClient.get<ListResponseModel<Brand>>(newPath);
+  }
 }

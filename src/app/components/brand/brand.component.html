@@ -39,7 +39,7 @@
     class="btn btn-outline-success mr-2"
     ngbAutofocus
     routerLink="/cars"
-    >Tümünü Göster</a
+    >Tüm Arabalar</a
   >
 </div>
 
@@ -87,16 +87,25 @@
         <div *ngIf="filterText" class="alert alert-success">
           {{ filterText }} aradınız
         </div>
-        <ul class="list-group">
-          <li
-            (click)="setCurrentBrand(brand)"
-            routerLink="/cars/brand/{{ brand.brandId }}"
-            *ngFor="let brand of brands | brandFilter: filterText"
-            [class]="getCurrentBrandClass(brand)"
-          >
-            {{ brand.brandName }}
-          </li>
-        </ul>
+        <div>
+          <ul class="list-group">
+            <button
+              routerLink="cars/brands"
+              class="btn btn-outline-primary mr-2"
+              ngbAutofocus
+            >
+              Tüm Markalar
+            </button>
+            <li
+              (click)="setCurrentBrand(brand)"
+              routerLink="/cars/brand/{{ brand.brandId }}"
+              *ngFor="let brand of brands | brandFilter: filterText"
+              [class]="getCurrentBrandClass(brand)"
+            >
+              {{ brand.brandName }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -144,14 +153,26 @@
           <div *ngIf="filterText" class="alert alert-success">
             {{ filterText }} aradınız
           </div>
-          <li
-            (click)="setCurrentColor(color)"
-            routerLink="/cars/color/{{ color.colorId }}"
-            *ngFor="let color of colors | colorFilter: filterText"
-            [class]="getCurrentColorClass(color)"
-          >
-            {{ color.colorName }}
-          </li>
+          <div>
+            <ul class="list-group">
+              <button
+                routerLink="cars/colors"
+                class="btn btn-outline-primary mr-2"
+                ngbAutofocus
+              >
+                Tüm Renkler
+              </button>
+
+              <li
+                (click)="setCurrentColor(color)"
+                routerLink="/cars/color/{{ color.colorId }}"
+                *ngFor="let color of colors | colorFilter: filterText"
+                [class]="getCurrentColorClass(color)"
+              >
+                {{ color.colorName }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

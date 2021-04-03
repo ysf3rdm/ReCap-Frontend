@@ -2,26 +2,33 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h5>Renk Ekle</h5>
+        <h5>Renk Güncelle</h5>
       </div>
       <div class="card-body">
-        <form [formGroup]="colorAddForm">
+        <form [formGroup]="colorUpdateForm">
           <div class="mb-3">
-            <label for="colorName"> Renk Adı</label>
+            <label for="colorName">
+              Yeni Adı<a>. .</a>
+              <small>
+                Eski Adı: *{{ color?.colorName | uppercase }}
+              </small></label
+            >
             <div class="form-group">
               <input
                 type="text"
                 id="colorName"
                 formControlName="colorName"
                 class="form-control"
-                placeholder="Renk Adı"
+                placeholder="Yeni Adı"
               />
             </div>
           </div>
         </form>
       </div>
       <div class="card-footer">
-        <button class="btn btn-fill btn-primary" (click)="add()">Ekle</button>
+        <button class="btn btn-fill btn-primary" (click)="updateColor()">
+          Güncelle
+        </button>
       </div>
     </div>
   </div>
