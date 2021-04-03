@@ -8,10 +8,8 @@
         <form [formGroup]="brandUpdateForm">
           <div class="mb-3">
             <label for="brandName">
-              Yeni Adı<a>. .</a>
-              <small>
-                Eski Adı: *{{ brand?.brandName | uppercase }}
-              </small></label
+              Yeni Adı
+              <small>===> şu anki adı: {{ brand?.brandName }} </small></label
             >
             <div class="form-group">
               <input

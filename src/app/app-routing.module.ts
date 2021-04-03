@@ -5,6 +5,7 @@ import { BrandListComponent } from './components/brand-list/brand-list.component
 import { BrandUpdateComponent } from './components/brand-update/brand-update.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { CarDetailComponent } from './components/car-detail/car-detail.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorListComponent } from './components/color-list/color-list.component';
@@ -37,6 +38,22 @@ const routes: Routes = [
   { path: 'colors/update/:colorId', component: ColorUpdateComponent },
   { path: 'cars/brands', component: BrandListComponent },
   { path: 'brands/update/:brandId', component: BrandUpdateComponent },
+  {
+    path: 'cars/cardetail/:carId/cars/update/:carId',
+    component: CarUpdateComponent,
+  },
+  {
+    path: 'cardetail/:carId',
+    component: CarComponent,
+  },
+  {
+    path: 'cardetail/:carId/update/:carId ',
+    component: CarUpdateComponent,
+  },
+  {
+    path: 'cardetail/:carId/cars/update/:carId ',
+    component: CarUpdateComponent,
+  },
 ];
 
 @NgModule({

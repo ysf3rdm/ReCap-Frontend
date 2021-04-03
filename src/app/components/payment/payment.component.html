@@ -155,7 +155,14 @@
           [disabled]="!rentalAddForm.valid && !baba"
           (click)="pay()"
         >
-          {{ totalPrice | currency: "₺" }} Ödeme Yap
+          {{ totalPrice | currency: "₺" }} Ödeme Yap</button
+        ><button
+          routerLink="/cardetail/{{ currentCar?.carId }}"
+          type="button"
+          class="btn btn-primary btn-sm"
+          style="float: right"
+        >
+          Geri Dön
         </button>
       </div>
       <div class="col-md-4">

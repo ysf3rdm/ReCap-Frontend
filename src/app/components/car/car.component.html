@@ -14,7 +14,7 @@
           class="table table-responsive-md table-striped table-hover table-bordered table caption-top"
         >
           <caption>
-            Ürün Detayı
+            Araba Detayı
           </caption>
           <thead>
             <tr>
@@ -28,31 +28,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let carDetail of carDetails">
-              <td>{{ carDetail.carId }}</td>
-              <td>{{ carDetail.brandName }}</td>
-              <td>{{ carDetail.carName }}</td>
-              <td>{{ carDetail.modelYear }}</td>
-              <td>{{ carDetail.colorName }}</td>
-              <td>{{ carDetail.description }}</td>
-              <td>{{ carDetail.dailyPrice | currency: "₺" }}</td>
+            <tr>
+              <td>{{ carDetails?.carId }}</td>
+              <td>{{ carDetails?.brandName }}</td>
+              <td>{{ carDetails?.carName }}</td>
+              <td>{{ carDetails?.modelYear }}</td>
+              <td>{{ carDetails?.colorName }}</td>
+              <td>{{ carDetails?.description }}</td>
+              <td>{{ carDetails?.dailyPrice | currency: "₺" }}</td>
+
               <td>
                 <button
-                  routerLink="/cars"
-                  type="button"
-                  class="btn btn-warning"
-                >
-                  Geri Dön
-                </button>
-              </td>
-              <td>
-                <button
-                  routerLink="/cars/payment/{{ carDetail.carId }}"
+                  routerLink="/cars/payment/{{ carDetails?.carId }}"
                   type="button"
                   class="btn btn-outline-success"
-                  data-bs-toggle="modal"
-                  data-bs-target="#rentalModal"
-                  id="ceren"
                   style="float: right"
                 >
                   Kirala
@@ -65,10 +54,28 @@
         <img
           class="card-img-top"
           *ngFor="let image of images"
-          style="width: 12rem"
+          style="width: 15rem"
           src="https://localhost:44368\{{ image.imagePath }}"
         />
       </div>
     </div>
+  </div>
+  <button
+    type="button"
+    class="btn btn-secondary"
+    routerLink="update/{{ carDetails?.carId }}"
+    style="float: right"
+  >
+    Güncelle
+  </button>
+  <div class="card-footer">
+    <button
+      routerLink="/cars"
+      type="button"
+      class="btn btn-warning"
+      style="float: right"
+    >
+      Geri Dön
+    </button>
   </div>
 </div>

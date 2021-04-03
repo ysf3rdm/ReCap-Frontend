@@ -8,10 +8,8 @@
         <form [formGroup]="colorUpdateForm">
           <div class="mb-3">
             <label for="colorName">
-              Yeni Adı<a>. .</a>
-              <small>
-                Eski Adı: *{{ color?.colorName | uppercase }}
-              </small></label
+              Yeni Adı
+              <small> ===> şu anki adı: {{ color?.colorName }} </small></label
             >
             <div class="form-group">
               <input

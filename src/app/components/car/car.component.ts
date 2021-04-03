@@ -26,7 +26,7 @@ export class CarComponent implements OnInit {
   totalDay: number;
   totalPrice: number;
   returnDate: Date;
-  carDetails: CarDetail[];
+  carDetails: CarDetail;
   currentCar: CarDetail;
   images: Image[] = [];
   dataLoaded = false;
@@ -51,7 +51,7 @@ export class CarComponent implements OnInit {
   }
   getCarDetailsByCarId(carId: number) {
     this.carService.getCarDetailsByCarId(carId).subscribe((response) => {
-      this.carDetails = response.data;
+      this.carDetails = response.data[0];
       this.dataLoaded = true;
     });
   }
