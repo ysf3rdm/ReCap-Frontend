@@ -26,12 +26,12 @@ export class CarAddComponent implements OnInit {
   }
   createCarAddForm() {
     this.carAddForm = this.formBuilder.group({
-      carName: ['', Validators.required],
-      colorId: ['', Validators.required],
-      brandId: ['', Validators.required],
-      modelYear: ['', Validators.required],
-      dailyPrice: ['', Validators.required],
-      description: ['', Validators.required],
+      carName: [''],
+      colorId: [''],
+      brandId: [''],
+      modelYear: [''],
+      dailyPrice: [''],
+      description: [''],
     });
   }
   add() {
@@ -42,8 +42,14 @@ export class CarAddComponent implements OnInit {
           this.toastrService.success(response.message, 'Başarılı');
         },
         (responseError) => {
-          console.log(productModel);
-          this.toastrService.error(responseError.error, 'Doğrulama Hatası');
+          if (responseError.error.Errors.length > 0) {
+            for (let i = 0; i < responseError.error.Errors.length; i++) {
+              this.toastrService.error(
+                responseError.error.Errors[i].ErrorMessage,
+                'doğrulama hatası'
+              );
+            }
+          }
         }
       );
     }

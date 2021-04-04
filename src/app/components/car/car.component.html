@@ -18,6 +18,7 @@
           </caption>
           <thead>
             <tr>
+              <th>Resim(ler)</th>
               <th>Id</th>
               <th>Markası</th>
               <th>Araba Adı</th>
@@ -29,6 +30,14 @@
           </thead>
           <tbody>
             <tr>
+              <td>
+                <img
+                  class="card-img-top"
+                  *ngFor="let image of images"
+                  style="width: 15rem"
+                  src="https://localhost:44368\{{ image.imagePath }}"
+                />
+              </td>
               <td>{{ carDetails?.carId }}</td>
               <td>{{ carDetails?.brandName }}</td>
               <td>{{ carDetails?.carName }}</td>
@@ -50,13 +59,6 @@
             </tr>
           </tbody>
         </table>
-
-        <img
-          class="card-img-top"
-          *ngFor="let image of images"
-          style="width: 15rem"
-          src="https://localhost:44368\{{ image.imagePath }}"
-        />
       </div>
     </div>
   </div>

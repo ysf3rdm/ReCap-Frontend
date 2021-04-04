@@ -24,7 +24,8 @@ export class BrandComponent implements OnInit {
   currentBrand: Brand;
   currentColor: Color;
   currentCustomer: Customer;
-  filterText = '';
+  brandText = '';
+  colorText = '';
 
   constructor(
     private brandService: BrandService,

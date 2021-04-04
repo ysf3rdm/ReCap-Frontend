@@ -77,15 +77,15 @@
           <label for="filterText" class="form-label"></label>
           <input
             type="text"
-            [(ngModel)]="filterText"
+            [(ngModel)]="brandText"
             class="form-control"
-            id="filterText"
+            id="brandText"
             placeholder="Marka Ara"
           />
         </div>
 
-        <div *ngIf="filterText" class="alert alert-success">
-          {{ filterText }} aradınız
+        <div *ngIf="brandText" class="alert alert-success">
+          {{ brandText }} aradınız
         </div>
         <div>
           <ul class="list-group">
@@ -99,10 +99,10 @@
             <li
               (click)="setCurrentBrand(brand)"
               routerLink="/cars/brand/{{ brand.brandId }}"
-              *ngFor="let brand of brands | brandFilter: filterText"
+              *ngFor="let brand of brands | brandFilter: brandText"
               [class]="getCurrentBrandClass(brand)"
             >
-              {{ brand.brandName }}
+              {{ brand.brandId }} -) {{ brand.brandName }}
             </li>
           </ul>
         </div>
@@ -143,15 +143,15 @@
             <label for="filterText" class="form-label">Renk Ara</label>
             <input
               type="text"
-              [(ngModel)]="filterText"
+              [(ngModel)]="colorText"
               class="form-control"
-              id="filterText"
+              id="colorText"
               placeholder="Renk Ara"
             />
           </div>
 
-          <div *ngIf="filterText" class="alert alert-success">
-            {{ filterText }} aradınız
+          <div *ngIf="colorText" class="alert alert-success">
+            {{ colorText }} aradınız
           </div>
           <div>
             <ul class="list-group">
@@ -166,10 +166,10 @@
               <li
                 (click)="setCurrentColor(color)"
                 routerLink="/cars/color/{{ color.colorId }}"
-                *ngFor="let color of colors | colorFilter: filterText"
+                *ngFor="let color of colors | colorFilter: colorText"
                 [class]="getCurrentColorClass(color)"
               >
-                {{ color.colorName }}
+                {{ color.colorId }} -) {{ color.colorName }}
               </li>
             </ul>
           </div>

@@ -39,6 +39,10 @@ const routes: Routes = [
   { path: 'cars/brands', component: BrandListComponent },
   { path: 'brands/update/:brandId', component: BrandUpdateComponent },
   {
+    path: 'cars/cardetail/:carId/update/:carId',
+    component: CarUpdateComponent,
+  },
+  {
     path: 'cars/cardetail/:carId/cars/update/:carId',
     component: CarUpdateComponent,
   },
