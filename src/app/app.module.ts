@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { NaviComponent } from './components/navi/navi.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ColorComponent } from './components/color/color.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { RentalComponent } from './components/rental/rental.component';
@@ -36,6 +36,9 @@ import { BrandUpdateComponent } from './components/brand-update/brand-update.com
 import { ColorUpdateComponent } from './components/color-update/color-update.component';
 import { BrandListComponent } from './components/brand-list/brand-list.component';
 import { CarUpdateComponent } from './components/car-update/car-update.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,8 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
     ColorUpdateComponent,
     BrandListComponent,
     CarUpdateComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,13 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
       positionClass: 'toast-bottom-right',
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

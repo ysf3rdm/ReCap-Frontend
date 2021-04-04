@@ -11,7 +11,9 @@ import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorListComponent } from './components/color-list/color-list.component';
 import { ColorUpdateComponent } from './components/color-update/color-update.component';
 import { CustomerComponent } from './components/customer/customer.component';
+import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { RegisterComponent } from './components/register/register.component';
 import { RentSummaryComponent } from './components/rent-summary/rent-summary.component';
 import { RentalComponent } from './components/rental/rental.component';
 
@@ -58,6 +60,8 @@ const routes: Routes = [
     path: 'cardetail/:carId/cars/update/:carId ',
     component: CarUpdateComponent,
   },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
