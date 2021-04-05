@@ -140,10 +140,11 @@
             <input
               [(ngModel)]="ccv"
               [ngModelOptions]="{ standalone: true }"
-              type="number"
+              type="tel"
               class="form-control"
               id="card-number"
               placeholder="CCV"
+              maxlength="3"
               required
             />
           </div>

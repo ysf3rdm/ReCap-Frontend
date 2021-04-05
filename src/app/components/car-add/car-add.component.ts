@@ -26,12 +26,13 @@ export class CarAddComponent implements OnInit {
   }
   createCarAddForm() {
     this.carAddForm = this.formBuilder.group({
-      carName: [''],
-      colorId: [''],
-      brandId: [''],
-      modelYear: [''],
-      dailyPrice: [''],
-      description: [''],
+      carName: ['', Validators.required],
+      colorId: ['', Validators.required],
+      brandId: ['', Validators.required],
+      modelYear: ['', Validators.required],
+      dailyPrice: ['', Validators.required],
+      description: ['', Validators.required],
+      findexPoint: ['', Validators.required],
     });
   }
   add() {
@@ -52,6 +53,8 @@ export class CarAddComponent implements OnInit {
           }
         }
       );
+    } else {
+      this.toastrService.error('Formunuz hatalı kontrol ediniz', 'Hata');
     }
   }
 }

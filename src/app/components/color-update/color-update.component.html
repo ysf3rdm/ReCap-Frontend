@@ -7,17 +7,14 @@
       <div class="card-body">
         <form [formGroup]="colorUpdateForm">
           <div class="mb-3">
-            <label for="colorName">
-              Yeni Adı
-              <small> ===> şu anki adı: {{ color?.colorName }} </small></label
-            >
+            <label for="colorName"> Yeni Adı </label>
             <div class="form-group">
               <input
                 type="text"
                 id="colorName"
                 formControlName="colorName"
                 class="form-control"
-                placeholder="Yeni Adı"
+                placeholder="{{ color?.colorName }}"
               />
             </div>
           </div>

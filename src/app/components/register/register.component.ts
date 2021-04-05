@@ -49,6 +49,8 @@ export class RegisterComponent implements OnInit {
           this.toastrService.error(responseError.error);
         }
       );
+    } else {
+      this.toastrService.error('Formunuz Eksik', 'Dikkat');
     }
   }
 }

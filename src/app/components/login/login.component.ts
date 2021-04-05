@@ -5,8 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private localStorage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +41,9 @@ export class LoginComponent implements OnInit {
         (response) => {
           console.log(response);
           this.toastrService.success(response.message, 'Başarılı');
-          localStorage.setItem('token', response.data.token);
+          this.localStorage.set(response.data);
+          this.toastrService.info('Ana sayfaya yönlendiriliyorsunuz', 'Bilgi');
+          this.router.navigate(['cars']);
         },
         (responseError) => {
           this.toastrService.error(responseError.error);

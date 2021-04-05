@@ -26,6 +26,7 @@
               <th>Rengi</th>
               <th>Açıklama</th>
               <th>Günlük Ücret</th>
+              <th>Findeks Puanı</th>
             </tr>
           </thead>
           <tbody>
@@ -45,6 +46,7 @@
               <td>{{ carDetails?.colorName }}</td>
               <td>{{ carDetails?.description }}</td>
               <td>{{ carDetails?.dailyPrice | currency: "₺" }}</td>
+              <td>{{ carDetails?.findexPoint }}</td>
 
               <td>
                 <button

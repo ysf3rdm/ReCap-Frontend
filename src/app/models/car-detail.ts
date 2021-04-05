@@ -9,4 +9,6 @@ export interface CarDetail {
   dailyPrice: number;
   description: number;
   imagePath: string;
+  findexPoint: number;
+  isRentable: boolean;
 }

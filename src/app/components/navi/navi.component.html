@@ -30,7 +30,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Boşluk
+            Hakkımızda
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item">başka boşluk</a></li>
@@ -42,25 +42,30 @@
             <li><a class="dropdown-item">ama yapmaaaa </a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li *ngIf="isAuth()" class="nav-item dropdown">
           <a
-            class="nav-link disabled"
-            href="#"
-            tabindex="-1"
-            aria-disabled="true"
-            >Disabled</a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
           >
+            Hoşgeldin {{ firstName }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/profile">Profil</a>
+            </li>
+            <li><a class="dropdown-item" (click)="logOut()">Çıkış Yap</a></li>
+          </ul>
+        </li>
+        <li *ngIf="!isAuth()" class="nav-item">
+          <a class="nav-link active me-2" routerLink="/register">Kaydol</a>
+        </li>
+        <li *ngIf="!isAuth()" class="nav-item">
+          <a class="nav-link active me-2" routerLink="/login">Giriş Yap</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>

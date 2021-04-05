@@ -13,9 +13,11 @@ import { ColorUpdateComponent } from './components/color-update/color-update.com
 import { CustomerComponent } from './components/customer/customer.component';
 import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RentSummaryComponent } from './components/rent-summary/rent-summary.component';
 import { RentalComponent } from './components/rental/rental.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: CarDetailComponent },
@@ -33,20 +35,42 @@ const routes: Routes = [
   { path: 'cars/filter/:colorId', component: CarDetailComponent },
   { path: 'cars/rentdetail/:carId', component: RentSummaryComponent },
   { path: 'cars/payment/:carId', component: PaymentComponent },
-  { path: 'cars/brandAdd', component: BrandAddComponent },
-  { path: 'cars/colorAdd', component: ColorAddComponent },
-  { path: 'cars/carAdd', component: CarAddComponent },
+  {
+    path: 'cars/brandAdd',
+    component: BrandAddComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'cars/colorAdd',
+    component: ColorAddComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'cars/carAdd',
+    component: CarAddComponent,
+    canActivate: [LoginGuard],
+  },
   { path: 'cars/colors', component: ColorListComponent },
-  { path: 'colors/update/:colorId', component: ColorUpdateComponent },
+  {
+    path: 'colors/update/:colorId',
+    component: ColorUpdateComponent,
+    canActivate: [LoginGuard],
+  },
   { path: 'cars/brands', component: BrandListComponent },
-  { path: 'brands/update/:brandId', component: BrandUpdateComponent },
+  {
+    path: 'brands/update/:brandId',
+    component: BrandUpdateComponent,
+    canActivate: [LoginGuard],
+  },
   {
     path: 'cars/cardetail/:carId/update/:carId',
     component: CarUpdateComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: 'cars/cardetail/:carId/cars/update/:carId',
     component: CarUpdateComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: 'cardetail/:carId',
@@ -55,13 +79,16 @@ const routes: Routes = [
   {
     path: 'cardetail/:carId/update/:carId ',
     component: CarUpdateComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: 'cardetail/:carId/cars/update/:carId ',
     component: CarUpdateComponent,
+    canActivate: [LoginGuard],
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
 ];
 
 @NgModule({

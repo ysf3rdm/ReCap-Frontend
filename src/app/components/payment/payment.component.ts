@@ -93,7 +93,6 @@ export class PaymentComponent implements OnInit {
       this.totalDay = Math.floor(
         (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
       );
-      console.log(this.rentalAddForm.value.rentDate);
       this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
       this.baba = true;
     }
