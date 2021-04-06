@@ -23,6 +23,7 @@ export class NaviComponent implements OnInit {
   ngOnInit(): void {
     this.getFirstName();
   }
+
   isAuth() {
     return this.authService.isAuthenticated();
   }

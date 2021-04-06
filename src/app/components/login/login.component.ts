@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginModel).subscribe(
         (response) => {
           console.log(response);
+
           this.toastrService.success(response.message, 'Başarılı');
           this.localStorage.set(response.data);
           this.toastrService.info('Ana sayfaya yönlendiriliyorsunuz', 'Bilgi');

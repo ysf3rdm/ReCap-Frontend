@@ -12,6 +12,7 @@ export class LocalStorageService {
     localStorage.setItem('lastName', user.lastName);
     localStorage.setItem('token', user.token);
     localStorage.setItem('email', user.email);
+    localStorage.setItem('userId', user.userId.toString());
   }
   getFirstName() {
     return localStorage.getItem('firstName');
@@ -24,5 +25,6 @@ export class LocalStorageService {
   }
   logOut() {
     localStorage.clear();
+    window.location.reload();
   }
 }

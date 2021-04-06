@@ -10,6 +10,7 @@ import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorListComponent } from './components/color-list/color-list.component';
 import { ColorUpdateComponent } from './components/color-update/color-update.component';
+import { CustomerAddComponent } from './components/customer-add/customer-add.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
@@ -89,6 +90,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'customeradd', component: CustomerAddComponent },
 ];
 
 @NgModule({

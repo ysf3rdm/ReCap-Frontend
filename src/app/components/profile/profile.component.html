@@ -26,6 +26,7 @@
                 id="lastName"
                 formControlName="lastName"
                 class="form-control"
+                placeholder=""
                 value="{{ lastName }}"
               />
             </div>
@@ -47,7 +48,18 @@
       </div>
       <div class="card-footer">
         <button class="btn btn-fill btn-primary">Güncelle</button>
+        <button
+          style="float: right"
+          class="btn btn-fill btn-secondary"
+          routerLink="/customeradd"
+        >
+          Müşteri Formu
+        </button>
+        <span style="float: right">
+          Müşterimiz olmak ister misiniz? Hemen formu doldurabilirsiniz
+        </span>
       </div>
     </div>
+    <div></div>
   </div>
 </div>
