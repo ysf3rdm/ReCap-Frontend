@@ -29,6 +29,11 @@ export class NaviComponent implements OnInit {
   }
   getFirstName() {
     this.firstName = this.localStorage.getFirstName();
+    if (this.firstName === null) {
+      return false;
+    } else {
+      return true;
+    }
   }
   logOut() {
     this.localStorage.logOut();

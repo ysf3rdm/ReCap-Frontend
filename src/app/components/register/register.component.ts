@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {

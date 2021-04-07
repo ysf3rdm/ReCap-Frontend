@@ -136,4 +136,11 @@ export class BrandComponent implements OnInit {
       return false;
     }
   }
+  isAdmin() {
+    if (localStorage.getItem('claim') === 'admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

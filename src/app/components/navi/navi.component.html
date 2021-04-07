@@ -42,7 +42,7 @@
             <li><a class="dropdown-item">ama yapmaaaa </a></li>
           </ul>
         </li>
-        <li *ngIf="isAuth()" class="nav-item dropdown">
+        <li *ngIf="getFirstName()" class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             id="navbarDropdown"
@@ -52,18 +52,41 @@
           >
             Hoşgeldin {{ firstName }}
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul
+            style="float: right"
+            class="dropdown-menu"
+            aria-labelledby="navbarDropdown"
+          >
             <li>
-              <a class="dropdown-item" routerLink="/profile">Profil</a>
+              <a
+                class="dropdown-item"
+                routerLink="/profile"
+                style="float: right"
+                >Profil</a
+              >
             </li>
-            <li><a class="dropdown-item" (click)="logOut()">Çıkış Yap</a></li>
+            <li>
+              <a class="dropdown-item" (click)="logOut()" style="float: right"
+                >Çıkış Yap</a
+              >
+            </li>
           </ul>
         </li>
         <li *ngIf="!isAuth()" class="nav-item">
-          <a class="nav-link active me-2" routerLink="/register">Kaydol</a>
+          <a
+            class="nav-link active me-2"
+            routerLink="/register"
+            style="float: right"
+            >Kaydol</a
+          >
         </li>
         <li *ngIf="!isAuth()" class="nav-item">
-          <a class="nav-link active me-2" routerLink="/login">Giriş Yap</a>
+          <a
+            class="nav-link active me-2"
+            routerLink="/login"
+            style="float: right"
+            >Giriş Yap</a
+          >
         </li>
       </ul>
     </div>

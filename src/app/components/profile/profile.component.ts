@@ -5,7 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { UserModel } from 'src/app/models/userModel';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,14 +15,17 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  userId = localStorage.getItem('userId');
   firstName = '';
   lastName = '';
   email = '';
+  claims = '';
   userUpdateForm: FormGroup;
 
   constructor(
     private localStorageService: LocalStorageService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {

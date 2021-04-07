@@ -21,6 +21,7 @@
 </div>
 <div>
   <button
+    *ngIf="isAdmin()"
     class="btn btn-outline-primary mr-2"
     ngbAutofocus
     routerLink="/cars/carAdd"
@@ -28,39 +29,47 @@
     Araba Ekle
   </button>
 </div>
-<div>
-  <label></label>
-</div>
-<table
-  *ngIf="dataLoaded == true"
-  class="table table-responsive-md table-striped table-hover table-bordered"
+<div
+  class="d-flex flex-wrap justify-content-center justify-content-xl-start"
+  style="gap: 0.45em; padding: 0; margin-top: 20px"
 >
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Araba Adı</th>
-      <th>Rengi</th>
-      <th>Markası</th>
-      <th>Günlük Ücreti</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let car of carDetails | filterPipe: filterText">
-      <td>{{ car.carId }}</td>
-      <td>{{ car.carName }}</td>
-      <td>{{ car.colorName }}</td>
-      <td>{{ car.brandName }}</td>
-      <td>{{ car.dailyPrice | currency: "₺" }}</td>
-      <td>
+  <div
+    *ngFor="let car of carDetails | filterPipe: filterText"
+    class="card"
+    style="width: 19rem"
+  >
+    <div class="d-flex" style="height: 60%">
+      <img
+        src="https://localhost:44368\{{ car.imagePath }}"
+        class="card-img-top"
+        alt=""
+      />
+    </div>
+    <div class="h-100 bg-light border rounded-3">
+      <h4 class="card-title text-center">{{ car.brandName }}</h4>
+      <h5 class="card-title text-center">{{ car.colorName }}</h5>
+      <h3 class="card-title text-center">{{ car.carName }}</h3>
+      <h5 class="card-title text-center">
+        <b>{{ car.description }}</b>
+      </h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item text-center">
+        Günlük Ücret:
+        {{ car.dailyPrice | currency: "₺" }}
+      </li>
+    </ul>
+    <div>
+      <div class="h-500 bg-light">
         <button
-          routerLink="/cars/cardetail/{{ car.carId }}"
+          class="btn btn-outline-secondary"
+          routerLink="/cardetail/{{ car.carId }}"
           type="button"
-          class="btn btn-light"
+          style="float: right"
         >
           Detayları Gör
         </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,9 @@ import { CarDetail } from 'src/app/models/car-detail';
 import { Image } from 'src/app/models/image';
 import { CarService } from 'src/app/services/car.service';
 import { ImageService } from 'src/app/services/image.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RentalService } from 'src/app/services/rental.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-car-detail',
@@ -14,7 +16,6 @@ import { RentalService } from 'src/app/services/rental.service';
 })
 export class CarDetailComponent implements OnInit {
   carDetails: CarDetail[];
-  cardetails$: CarDetail;
   images: Image[];
   filterText = '';
 
@@ -24,10 +25,15 @@ export class CarDetailComponent implements OnInit {
     private carService: CarService,
     private imageService: ImageService,
     private rentalService: RentalService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private userService: UserService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
+    localStorage.setItem('claim', '');
+    this.getClaims();
+    this.getImages();
     this.getCarDetails();
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
@@ -50,6 +56,11 @@ export class CarDetailComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
+  getImages() {
+    this.imageService.getImages().subscribe((response) => {
+      this.images = response.data;
+    });
+  }
   getCarDetails() {
     this.carService.getCarDetails().subscribe((response) => {
       this.carDetails = response.data;
@@ -64,7 +75,7 @@ export class CarDetailComponent implements OnInit {
   }
   getCarDetailsByCarId(carId: number) {
     this.carService.getCarDetailsByCarId(carId).subscribe((response) => {
-      this.cardetails$ = response.data[0];
+      this.carDetails = response.data;
       this.dataLoaded = true;
     });
   }
@@ -81,5 +92,20 @@ export class CarDetailComponent implements OnInit {
         this.carDetails = response.data;
         this.dataLoaded = true;
       });
+  }
+  getClaims() {
+    let newUser = {
+      Id: parseInt(localStorage.getItem('userId')),
+    };
+    this.userService.getClaims(newUser).subscribe((response) => {
+      this.localStorageService.setClaims(response.data);
+    });
+  }
+  isAdmin() {
+    if (localStorage.getItem('claim') === 'admin') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

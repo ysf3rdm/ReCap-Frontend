@@ -9,6 +9,7 @@
       {{ brand.brandName }}
     </option>
   </select>
+  <label></label>
 </div>
 
 <div class="col-sm-6">
@@ -22,8 +23,9 @@
       {{ color.colorName }}
     </option>
   </select>
+  <label></label>
 </div>
-<div class="col-sm-3">
+<div>
   <a
     type="button"
     class="btn btn-outline-primary mr-2"
@@ -32,8 +34,6 @@
     routerLink="/cars/filter/{{ brandNumber }}/{{ colorNumber }}"
     >Filtrele</a
   >
-</div>
-<div>
   <a
     routerLink="/cars"
     class="btn btn-outline-success mr-2"
@@ -42,6 +42,7 @@
     >Tüm Arabalar</a
   >
 </div>
+<div></div>
 
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
@@ -66,6 +67,7 @@
       <div class="accordion-body">
         <div>
           <button
+            *ngIf="isAdmin()"
             class="btn btn-outline-primary mr-2"
             ngbAutofocus
             routerLink="/cars/brandAdd"
@@ -90,6 +92,7 @@
         <div>
           <ul class="list-group">
             <button
+              *ngIf="isAdmin()"
               routerLink="cars/brands"
               class="btn btn-outline-primary mr-2"
               ngbAutofocus
@@ -131,6 +134,7 @@
       <div class="accordion-body">
         <div>
           <button
+            *ngIf="isAdmin()"
             class="btn btn-outline-primary mr-2"
             ngbAutofocus
             routerLink="/cars/colorAdd"
@@ -159,6 +163,7 @@
                 routerLink="cars/colors"
                 class="btn btn-outline-primary mr-2"
                 ngbAutofocus
+                *ngIf="isAdmin()"
               >
                 Tüm Renkler
               </button>

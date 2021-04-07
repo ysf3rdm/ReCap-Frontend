@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Claim } from '../models/claim';
 import { UserModel } from '../models/userModel';
 
 @Injectable({
@@ -25,6 +26,13 @@ export class LocalStorageService {
   }
   logOut() {
     localStorage.clear();
-    window.location.reload();
+  }
+  setClaims(claim: Claim[]) {
+    //   if (claim[0].name === undefined) {
+    //     localStorage.setItem('claim', '');
+    //   } else {
+    //     localStorage.setItem('claim', claim[0].name);
+    //   }
+    localStorage.setItem('claim', claim[0]?.name);
   }
 }
