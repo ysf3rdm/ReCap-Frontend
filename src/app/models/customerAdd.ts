@@ -1,8 +1,5 @@
-export interface Customer {
+export interface CustomerAdd {
   customerId: number;
-  firstName: string;
-  lastName: string;
-  email: string;
   userId: number;
   companyName: number;
   findexPoint: number;

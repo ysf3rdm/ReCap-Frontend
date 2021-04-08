@@ -2,27 +2,30 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h5>Müşteri Ekle</h5>
+        <h5>Müşteri Ol</h5>
       </div>
       <div class="card-body">
-        <form>
+        <form [formGroup]="customerAddForm">
           <div class="mb-3">
-            <label for="colorName">User ID</label>
+            <label for="companyName"
+              >Şirket Adı: (Opsiyonel. Yoksa bile müşteri ol tuşuna
+              basınız)</label
+            >
             <div class="form-group">
               <input
                 type="text"
-                id="colorName"
-                formControlName="colorName"
+                id="companyName"
+                formControlName="companyName"
                 class="form-control"
-                value=""
-                readonly
               />
             </div>
           </div>
         </form>
       </div>
       <div class="card-footer">
-        <button class="btn btn-fill btn-primary">Ekle</button>
+        <button class="btn btn-fill btn-primary" (click)="addCustomer()">
+          Müşteri Ol
+        </button>
       </div>
     </div>
   </div>

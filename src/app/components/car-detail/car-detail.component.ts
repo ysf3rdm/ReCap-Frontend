@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/car-detail';
 import { Image } from 'src/app/models/image';
@@ -15,6 +15,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
+  nowDate = Date.now();
+  expirationTime = Date.parse(localStorage.getItem('expiration'));
   carDetails: CarDetail[];
   images: Image[];
   filterText = '';
@@ -27,10 +29,12 @@ export class CarDetailComponent implements OnInit {
     private rentalService: RentalService,
     private toastrService: ToastrService,
     private userService: UserService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.expirationLogOut();
     localStorage.setItem('claim', '');
     this.getClaims();
     this.getImages();
@@ -106,6 +110,17 @@ export class CarDetailComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+
+  expirationLogOut() {
+    if (this.expirationTime <= this.nowDate) {
+      this.toastrService.info(
+        'Süreniz bitmiştir.Tekrar giriş yapınız',
+        'Bilgi'
+      );
+      this.router.navigate(['login']);
+      this.localStorageService.logOut();
     }
   }
 }

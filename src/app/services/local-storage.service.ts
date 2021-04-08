@@ -35,4 +35,7 @@ export class LocalStorageService {
     //   }
     localStorage.setItem('claim', claim[0]?.name);
   }
+  getExpiration() {
+    return localStorage.getItem('expiration');
+  }
 }

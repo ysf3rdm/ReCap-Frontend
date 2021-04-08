@@ -14,9 +14,9 @@ import { UserModel } from '../models/userModel';
 export class UserService {
   apiUrl = 'https://localhost:44368/api/';
   constructor(private httpClient: HttpClient) {}
-  getUser(mail: string): Observable<SingleResponseModel<RegisterModel>> {
-    return this.httpClient.get<SingleResponseModel<RegisterModel>>(
-      this.apiUrl + 'users/getbymail'
+  getUser(mail: string): Observable<SingleResponseModel<UserModel>> {
+    return this.httpClient.get<SingleResponseModel<UserModel>>(
+      this.apiUrl + 'users/getbymail?mail=' + mail
     );
   }
   getClaims(user: User): Observable<ListResponseModel<Claim>> {

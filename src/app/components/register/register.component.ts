@@ -41,11 +41,10 @@ export class RegisterComponent implements OnInit {
       let registerModel = Object.assign({}, this.registerForm.value);
       this.authService.register(registerModel).subscribe(
         (response) => {
-          console.log(response);
           this.toastrService.success(response.message, 'Başarılı');
-          localStorage.setItem('token', response.data.token);
-          this.router.navigate(['login']);
-          this.toastrService.info('Giriş sayfasına yönlendirliyorsunuz..');
+          localStorage.setItem('email', this.registerForm.value.email);
+          this.router.navigate(['customeradd']);
+          this.toastrService.info('Müşteri sayfasına yönlendiriliyorsunuz');
         },
         (responseError) => {
           this.toastrService.error(responseError.error);
