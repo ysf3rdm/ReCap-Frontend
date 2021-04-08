@@ -40,4 +40,11 @@ export class NaviComponent implements OnInit {
     this.toastrService.warning('Çıkış Yapıldı', 'Uyarı');
     this.router.navigate(['login']);
   }
+  isAdmin() {
+    if (localStorage.getItem('claim') === 'admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

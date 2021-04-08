@@ -28,7 +28,8 @@ export class PaymentComponent implements OnInit {
     holderName: new FormControl(''),
     cardNumber: new FormControl(''),
   });
-  customers: Customer[];
+  totalPoint: number;
+  customer: Customer;
   rentDate: Date;
   returnDate: Date;
   currentCar: CarDetail;
@@ -57,7 +58,7 @@ export class PaymentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCustomers();
+    this.getCustomerByUserId();
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
         this.getCarDetailsByCarId(params['carId']);
@@ -70,10 +71,15 @@ export class PaymentComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
-  getCustomers() {
-    this.customerService.getCustomers().subscribe((response) => {
-      this.customers = response.data;
-    });
+  getCustomerByUserId() {
+    this.customerService
+      .getCustomerByUserId(parseInt(localStorage.getItem('userId')))
+      .subscribe((response) => {
+        this.customer = response.data[0];
+      });
+  }
+  addPoint() {
+    this.totalPoint = this.totalDay * this.currentCar.giveToPoint;
   }
   calculateAmount(rentDate: Date, returnDate: Date) {
     if (
@@ -95,6 +101,7 @@ export class PaymentComponent implements OnInit {
       );
       this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
       this.baba = true;
+      this.addPoint();
     }
   }
   pay() {
@@ -107,7 +114,7 @@ export class PaymentComponent implements OnInit {
     } else {
       let rental: Rental = {
         carId: this.currentCar.carId,
-        customerId: +this.customerSelected,
+        customerId: this.customer.customerId,
         rentDate: this.rentalAddForm.value.rentDate,
         returnDate: this.rentalAddForm.value.returnDate,
         totalPrice: this.totalPrice,
@@ -126,7 +133,9 @@ export class PaymentComponent implements OnInit {
       console.log(paymentDetail);
       this.rentalService.addToRent(paymentDetail).subscribe(
         (response) => {
-          console.log(response);
+          this.customer.findexPoint += this.totalPoint;
+          console.log(this.customer.findexPoint);
+          this.customerService.update(this.customer).subscribe();
           this.toastrService.success(response.message, 'Başarılı');
           // this.router.navigate(['/']).then(() =>
           //   setTimeout(function () {

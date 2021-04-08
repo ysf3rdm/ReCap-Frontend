@@ -7,9 +7,22 @@
       <div class="card-body">
         <form [formGroup]="customerAddForm">
           <div class="mb-3">
+            <label for="companyName">Kullanıcı Numarası</label>
+            <div class="form-group">
+              <input
+                readonly
+                placeholder="{{ user.userId }}"
+                type="text"
+                id="companyName"
+                formControlName="companyName"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
             <label for="companyName"
               >Şirket Adı: (Opsiyonel. Yoksa bile müşteri ol tuşuna
-              basınız)</label
+              basabilirsiniz...)</label
             >
             <div class="form-group">
               <input
@@ -17,6 +30,19 @@
                 id="companyName"
                 formControlName="companyName"
                 class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="companyName">Verilecek Findks puanı</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="companyName"
+                formControlName="companyName"
+                class="form-control"
+                readonly
+                placeholder="100"
               />
             </div>
           </div>

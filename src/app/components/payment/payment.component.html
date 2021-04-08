@@ -153,6 +153,12 @@
       <div class="col-md-4">
         <ul class="list-group">
           <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
+          <li *ngIf="totalPoint" class="list-group-item">
+            Kazandıracağı Puan: {{ totalPoint }}
+          </li>
+          <li class="list-group-item">
+            Günlük kazandıracağı Puan: {{ currentCar?.giveToPoint }}
+          </li>
           <li class="list-group-item">Araba: {{ currentCar?.carName }}</li>
           <li class="list-group-item">Markası: {{ currentCar?.brandName }}</li>
           <li class="list-group-item">
@@ -162,7 +168,7 @@
             Günlük Ücret: {{ currentCar?.dailyPrice | currency: "₺" }}
           </li>
           <li class="list-group-item">
-            Müşteri Numarası: {{ +customerSelected }}
+            Müşteri Numarası: {{ customer?.customerId }}
           </li>
         </ul>
       </div>

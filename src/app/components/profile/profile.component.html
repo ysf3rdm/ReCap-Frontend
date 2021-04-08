@@ -12,11 +12,11 @@
             <label for="firstName"> İSİM </label>
             <div class="form-group">
               <input
+                class="form-control"
                 type="text"
                 id="firstName"
-                formControlName="firstName"
-                class="form-control"
                 value="{{ firstName }}"
+                formControlName="firstName"
               />
             </div>
           </div>
@@ -29,7 +29,7 @@
                 formControlName="lastName"
                 class="form-control"
                 placeholder=""
-                value="{{ lastName }}"
+                value="{ lastName }"
               />
             </div>
           </div>
@@ -43,6 +43,19 @@
                 class="form-control"
                 readonly
                 placeholder="{{ email }}"
+              />
+            </div>
+          </div>
+          <div *ngIf="customer?.findexPoint" class="mb-3">
+            <label for="email"> Findeks Puanınız: </label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                readonly
+                placeholder="{{ customer.findexPoint }}"
               />
             </div>
           </div>

@@ -11,4 +11,5 @@ export interface CarDetail {
   imagePath: string;
   findexPoint: number;
   isRentable: boolean;
+  giveToPoint: number;
 }

@@ -20,7 +20,7 @@ import { Customer } from 'src/app/models/customer';
 export class CarComponent implements OnInit {
   rentalAddForm: FormGroup;
   customerId: Number;
-  customers: Customer[] = [];
+  customer: Customer;
   rental: Rental;
   rentDate: Date;
   totalDay: number;
@@ -47,7 +47,7 @@ export class CarComponent implements OnInit {
       this.getCarDetailsByCarId(params['carId']);
       this.getImagesByCarId(params['carId']);
     });
-    this.getCustomers();
+    this.getCustomerByUserId();
   }
   getCarDetailsByCarId(carId: number) {
     this.carService.getCarDetailsByCarId(carId).subscribe((response) => {
@@ -61,10 +61,13 @@ export class CarComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
-  getCustomers() {
-    this.customerService.getCustomers().subscribe((response) => {
-      this.customers = response.data;
-    });
+  getCustomerByUserId() {
+    this.customerService
+      .getCustomerByUserId(parseInt(localStorage.getItem('userId')))
+      .subscribe((response) => {
+        this.customer = response.data[0];
+        console.log(this.customer);
+      });
   }
 
   createRentalAddForm() {
@@ -74,5 +77,19 @@ export class CarComponent implements OnInit {
       carId: [''],
       returnDate: [''],
     });
+  }
+  isAdmin() {
+    if (localStorage.getItem('claim') === 'admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  isFindexEnough() {
+    if (this.customer?.findexPoint >= this.carDetails?.findexPoint) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

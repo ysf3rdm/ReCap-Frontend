@@ -50,6 +50,7 @@
 
               <td>
                 <button
+                  *ngIf="isFindexEnough()"
                   routerLink="/cars/payment/{{ carDetails?.carId }}"
                   type="button"
                   class="btn btn-outline-success"
@@ -58,6 +59,7 @@
                   Kirala
                 </button>
               </td>
+              <td *ngIf="!isFindexEnough()">Findex Puanınız Yetersiz</td>
             </tr>
           </tbody>
         </table>
@@ -65,6 +67,7 @@
     </div>
   </div>
   <button
+    *ngIf="isAdmin()"
     type="button"
     class="btn btn-secondary"
     routerLink="update/{{ carDetails?.carId }}"

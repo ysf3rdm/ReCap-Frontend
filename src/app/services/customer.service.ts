@@ -5,6 +5,7 @@ import { Customer } from '../models/customer';
 import { CustomerAdd } from '../models/customerAdd';
 import { ListResponseModel } from '../models/listResponseModel';
 import { ResponseModel } from '../models/responseModel';
+import { UserModel } from '../models/userModel';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,17 @@ export class CustomerService {
     return this.httpClient.post<ResponseModel>(
       this.apiUrl + 'customers/add',
       customer
+    );
+  }
+  update(customer: CustomerAdd): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(
+      this.apiUrl + 'customers/update',
+      customer
+    );
+  }
+  getCustomerByUserId(userId: number): Observable<ListResponseModel<Customer>> {
+    return this.httpClient.get<ListResponseModel<Customer>>(
+      this.apiUrl + 'customers/getcustomerbyuserid?Id=' + userId
     );
   }
 }

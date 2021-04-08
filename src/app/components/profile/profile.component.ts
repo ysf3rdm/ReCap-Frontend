@@ -5,7 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Customer } from 'src/app/models/customer';
 import { UserModel } from 'src/app/models/userModel';
+import { CustomerService } from 'src/app/services/customer.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,7 +17,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  userId = localStorage.getItem('userId');
+  customer: Customer;
   firstName = '';
   lastName = '';
   email = '';
@@ -25,10 +27,12 @@ export class ProfileComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
+    this.getCustomer();
     this.getNamesAndEmail();
     this.createUserUpdateForm();
   }
@@ -43,5 +47,12 @@ export class ProfileComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required],
     });
+  }
+  getCustomer() {
+    this.customerService
+      .getCustomerByUserId(parseInt(localStorage.getItem('userId')))
+      .subscribe((response) => {
+        this.customer = response.data[0];
+      });
   }
 }
