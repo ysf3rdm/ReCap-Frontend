@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
+  path = 'https://localhost:44368/';
   nowDate = Date.now();
   expirationTime = Date.parse(localStorage.getItem('expiration'));
   carDetails: CarDetail[];
@@ -96,6 +97,15 @@ export class CarDetailComponent implements OnInit {
         this.carDetails = response.data;
         this.dataLoaded = true;
       });
+  }
+  getImagePath(image: string) {
+    if (image) {
+      let newPath = this.path + image;
+      return newPath;
+    } else {
+      let defaultPath = this.path + '\\Images\\default.jpg';
+      return defaultPath;
+    }
   }
   getClaims() {
     let newUser = {

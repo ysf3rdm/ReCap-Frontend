@@ -1,5 +1,5 @@
 <div class="modal-body">
-  <form [formGroup]="rentalAddForm">
+  <form [formGroup]="dateForm">
     <div class="card" style="width: 30rem">
       <mat-form-field appearance="fill">
         <mat-label>Alınacak tarih</mat-label>
@@ -36,16 +36,33 @@
       </mat-form-field>
       <button
         (click)="
-          calculateAmount(
-            rentalAddForm.value.rentDate,
-            rentalAddForm.value.returnDate
-          )
+          calculateAmount(dateForm.value.rentDate, dateForm.value.returnDate)
         "
       >
         TARİHLERİ SEÇ
       </button>
     </div>
+  </form>
+  <div class="col-6">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Kayıtlı kartlar</strong>
+      </li>
 
+      <button
+        *ngFor="let card of cards"
+        class="btn btn-primary"
+        (click)="setCurrentCard(card)"
+      >
+        Kart No : {{ card.cardNumber }}
+      </button>
+
+      <li *ngIf="cards.length == 0" class="list-group-item">
+        Kayıtlı kartınız bulunmamaktadır.
+      </li>
+    </ul>
+  </div>
+  <form [formGroup]="creditCardForm">
     <div class="row">
       <div class="col-md-8">
         <div class="mb-3">
@@ -80,8 +97,7 @@
           <div class="col-md-4">
             <label for="card-number" class="form-label">Yıl</label>
             <select
-              [(ngModel)]="expirationYear"
-              [ngModelOptions]="{ standalone: true }"
+              formControlName="expirationYear"
               class="form-select"
               aria-label="Default select example"
               required
@@ -99,11 +115,10 @@
           <div class="col-md-4">
             <label for="card-number" class="form-label">Ay</label>
             <select
-              [(ngModel)]="expirationMonth"
+              formControlName="expirationMonth"
               class="form-select"
               aria-label="Default select example"
               required
-              [ngModelOptions]="{ standalone: true }"
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -122,8 +137,7 @@
           <div class="col-md-4">
             <label for="card-number" class="form-label">CCV</label>
             <input
-              [(ngModel)]="ccv"
-              [ngModelOptions]="{ standalone: true }"
+              formControlName="ccv"
               type="tel"
               class="form-control"
               id="card-number"
@@ -133,11 +147,23 @@
             />
           </div>
         </div>
-
+        <div class="form-check">
+          <input
+            formControlName="wannaSave"
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="isChecked"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            Kart Bilgilerimi Kaydet
+          </label>
+        </div>
         <button
           type="button"
           class="btn btn-success btn-sm"
-          [disabled]="!rentalAddForm.valid && !baba"
+          [disabled]="!creditCardForm.valid || !baba"
           (click)="pay()"
         >
           {{ totalPrice | currency: "₺" }} Ödeme Yap</button

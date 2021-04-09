@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CreditCardModel } from '../models/creditCardModel';
+import { ListResponseModel } from '../models/listResponseModel';
 import { PaymentDetail } from '../models/paymentDetail';
 import { ResponseModel } from '../models/responseModel';
 
@@ -12,8 +14,15 @@ export class PaymentService {
 
   constructor(private httpClient: HttpClient) {}
 
-  addPayment(payment: PaymentDetail): Observable<ResponseModel> {
-    let newPath = this.apiUrl + '/payments/add';
+  saveCard(payment: CreditCardModel): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'payments/savecard';
     return this.httpClient.post<ResponseModel>(newPath, payment);
+  }
+  getCardByCustomer(
+    customerId: number
+  ): Observable<ListResponseModel<CreditCardModel>> {
+    return this.httpClient.get<ListResponseModel<CreditCardModel>>(
+      this.apiUrl + 'payments/getcardbyid?customerId=' + customerId
+    );
   }
 }

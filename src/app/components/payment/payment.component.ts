@@ -9,11 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/car-detail';
 import { CreditCard } from 'src/app/models/creditCard';
+import { CreditCardModel } from 'src/app/models/creditCardModel';
 import { Customer } from 'src/app/models/customer';
 import { PaymentDetail } from 'src/app/models/paymentDetail';
 import { Rental } from 'src/app/models/rental';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
@@ -22,12 +24,8 @@ import { RentalService } from 'src/app/services/rental.service';
   styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent implements OnInit {
-  rentalAddForm = new FormGroup({
-    rentDate: new FormControl(''),
-    returnDate: new FormControl(''),
-    holderName: new FormControl(''),
-    cardNumber: new FormControl(''),
-  });
+  dateForm: FormGroup;
+  creditCardForm: FormGroup;
   totalPoint: number;
   customer: Customer;
   rentDate: Date;
@@ -46,7 +44,7 @@ export class PaymentComponent implements OnInit {
   paymentDetail: PaymentDetail;
   creditCard: CreditCard;
   baba = false;
-
+  cards: CreditCardModel[] = [];
   constructor(
     private carService: CarService,
     private activatedRoute: ActivatedRoute,
@@ -54,17 +52,55 @@ export class PaymentComponent implements OnInit {
     private customerService: CustomerService,
     private rentalService: RentalService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private paymentService: PaymentService
   ) {}
 
   ngOnInit(): void {
+    this.createCreditCardForm();
+    this.createDateForm();
     this.getCustomerByUserId();
+
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
         this.getCarDetailsByCarId(params['carId']);
       }
     });
   }
+  getCards() {
+    this.paymentService
+      .getCardByCustomer(this.customer?.customerId)
+      .subscribe((response) => {
+        this.cards = response.data;
+      });
+  }
+  setCurrentCard(card: CreditCard) {
+    this.creditCardForm.patchValue({
+      holderName: card.holderName,
+      cardNumber: card.cardNumber,
+      expirationMonth: card.expirationMonth,
+      expirationYear: card.expirationYear,
+      ccv: card.cvv,
+      wannaSave: false,
+    });
+  }
+  createDateForm() {
+    this.dateForm = this.formBuilder.group({
+      rentDate: ['', Validators.required],
+      returnDate: ['', Validators.required],
+    });
+  }
+  createCreditCardForm() {
+    this.creditCardForm = this.formBuilder.group({
+      holderName: ['', Validators.required],
+      cardNumber: ['', Validators.required],
+      expirationYear: ['', Validators.required],
+      expirationMonth: ['', Validators.required],
+      ccv: ['', Validators.required],
+      wannaSave: [''],
+    });
+  }
+
   getCarDetailsByCarId(carId: number) {
     this.carService.getCarDetailsByCarId(carId).subscribe((response) => {
       this.currentCar = response.data[0];
@@ -76,20 +112,19 @@ export class PaymentComponent implements OnInit {
       .getCustomerByUserId(parseInt(localStorage.getItem('userId')))
       .subscribe((response) => {
         this.customer = response.data[0];
+        this.getCards();
       });
   }
   addPoint() {
     this.totalPoint = this.totalDay * this.currentCar.giveToPoint;
   }
   calculateAmount(rentDate: Date, returnDate: Date) {
-    if (
-      this.rentalAddForm.value.rentDate >= this.rentalAddForm.value.returnDate
-    ) {
+    if (this.dateForm.value.rentDate >= this.dateForm.value.returnDate) {
       this.toastrService.error(
         'Teslim tarihi iade tarihinden önce veya aynı olamaz',
         'Tarih Hatası'
       );
-    } else if (this.rentalAddForm.value.rentDate < Date.now()) {
+    } else if (this.dateForm.value.rentDate < Date.now()) {
       this.toastrService.error(
         'Bugünden daha önce bir tarih seçemezsiniz',
         'Tarih Hatası'
@@ -105,48 +140,49 @@ export class PaymentComponent implements OnInit {
     }
   }
   pay() {
-    if (+this.rentalAddForm.value.cvv == null) {
-      this.toastrService.error('CVV boş bırakılamaz', 'HATA');
-    } else if (+this.rentalAddForm.value.expirationMonth) {
-      this.toastrService.error('Son kullanma ayı boş bırakılamaz', 'HATA');
-    } else if (+this.rentalAddForm.value.expirationYear == null) {
-      this.toastrService.error('Son kullanma yılı boş bırakılamaz', 'HATA');
-    } else {
-      let rental: Rental = {
-        carId: this.currentCar.carId,
+    let rental: Rental = {
+      carId: this.currentCar.carId,
+      customerId: this.customer.customerId,
+      rentDate: this.dateForm.value.rentDate,
+      returnDate: this.dateForm.value.returnDate,
+      totalPrice: this.totalPrice,
+    };
+    let creditCard: CreditCard = {
+      cardNumber: this.creditCardForm.value.cardNumber.toString(),
+      holderName: this.creditCardForm.value.holderName,
+      cvv: this.creditCardForm.value.ccv.toString(),
+      expirationYear: parseInt(this.creditCardForm.value.expirationYear),
+      expirationMonth: parseInt(this.creditCardForm.value.expirationMonth),
+    };
+    let paymentDetail = {
+      creditCard: creditCard,
+      rental: rental,
+    };
+    if (this.creditCardForm.value.wannaSave) {
+      let savedCard: CreditCardModel = {
+        cardNumber: creditCard.cardNumber,
+        holderName: creditCard.holderName,
+        cvv: creditCard.cvv,
+        expirationMonth: creditCard.expirationMonth,
+        expirationYear: creditCard.expirationYear,
         customerId: this.customer.customerId,
-        rentDate: this.rentalAddForm.value.rentDate,
-        returnDate: this.rentalAddForm.value.returnDate,
-        totalPrice: this.totalPrice,
       };
-      let creditCard: CreditCard = {
-        cardNumber: this.rentalAddForm.value.cardNumber.toString(),
-        holderName: this.rentalAddForm.value.holderName,
-        cvv: this.ccv.toString(),
-        expirationYear: +this.expirationYear,
-        expirationMonth: +this.expirationMonth,
-      };
-      let paymentDetail = {
-        creditCard: creditCard,
-        rental: rental,
-      };
-      console.log(paymentDetail);
-      this.rentalService.addToRent(paymentDetail).subscribe(
-        (response) => {
-          this.customer.findexPoint += this.totalPoint;
-          console.log(this.customer.findexPoint);
-          this.customerService.update(this.customer).subscribe();
-          this.toastrService.success(response.message, 'Başarılı');
-          // this.router.navigate(['/']).then(() =>
-          //   setTimeout(function () {
-          //     window.location.reload();
-          //   }, 500)
-          // );
-        },
-        (errorResponse) => {
-          this.toastrService.error(errorResponse.error.message, 'HATA');
-        }
-      );
+      this.paymentService.saveCard(savedCard).subscribe();
     }
+    this.rentalService.addToRent(paymentDetail).subscribe(
+      (response) => {
+        this.customer.findexPoint += this.totalPoint;
+        this.customerService.update(this.customer).subscribe();
+        this.toastrService.success(response.message, 'Başarılı');
+        // this.router.navigate(['/']).then(() =>
+        //   setTimeout(function () {
+        //     window.location.reload();
+        //   }, 500)
+        // );
+      },
+      (errorResponse) => {
+        this.toastrService.error(errorResponse.error.message, 'HATA');
+      }
+    );
   }
 }

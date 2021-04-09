@@ -39,11 +39,7 @@
     style="width: 19rem"
   >
     <div class="d-flex" style="height: 60%">
-      <img
-        src="https://localhost:44368\{{ car.imagePath }}"
-        class="card-img-top"
-        alt=""
-      />
+      <img [src]="getImagePath(car.imagePath)" class="card-img-top" />
     </div>
     <div class="h-100 bg-light border rounded-3">
       <h4 class="card-title text-center">{{ car.brandName }}</h4>

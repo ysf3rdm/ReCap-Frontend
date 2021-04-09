@@ -66,7 +66,6 @@ export class CarComponent implements OnInit {
       .getCustomerByUserId(parseInt(localStorage.getItem('userId')))
       .subscribe((response) => {
         this.customer = response.data[0];
-        console.log(this.customer);
       });
   }
 
