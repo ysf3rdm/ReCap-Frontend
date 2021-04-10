@@ -135,7 +135,6 @@ export class PaymentComponent implements OnInit {
         (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
       );
       this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
-      this.baba = true;
       this.addPoint();
     }
   }
@@ -170,16 +169,26 @@ export class PaymentComponent implements OnInit {
             expirationYear: creditCard.expirationYear,
             customerId: this.customer.customerId,
           };
-          this.paymentService.saveCard(savedCard).subscribe();
+          this.paymentService.saveCard(savedCard).subscribe(
+            (response) => {
+              this.toastrService.success(response.message, 'Başarılı');
+            },
+            (errorResponse) => {
+              this.toastrService.info(
+                'Kart zaten kayıtlı olduğu için kaydedilmedi',
+                'Hata'
+              );
+            }
+          );
         }
         this.customer.findexPoint += this.totalPoint;
         this.customerService.update(this.customer).subscribe();
         this.toastrService.success(response.message, 'Başarılı');
-        // this.router.navigate(['/']).then(() =>
-        //   setTimeout(function () {
-        //     window.location.reload();
-        //   }, 500)
-        // );
+        this.router.navigate(['/']).then(() =>
+          setTimeout(function () {
+            window.location.reload();
+          }, 1000)
+        );
       },
       (errorResponse) => {
         this.toastrService.error(errorResponse.error.message, 'HATA');
