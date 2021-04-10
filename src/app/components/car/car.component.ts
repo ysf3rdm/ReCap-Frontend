@@ -84,6 +84,12 @@ export class CarComponent implements OnInit {
       return false;
     }
   }
+  isCustomer() {
+    if (this.customer === undefined) {
+      return true;
+    }
+    return false;
+  }
   isFindexEnough() {
     if (this.customer?.findexPoint >= this.carDetails?.findexPoint) {
       return true;

@@ -158,19 +158,20 @@ export class PaymentComponent implements OnInit {
       creditCard: creditCard,
       rental: rental,
     };
-    if (this.creditCardForm.value.wannaSave) {
-      let savedCard: CreditCardModel = {
-        cardNumber: creditCard.cardNumber,
-        holderName: creditCard.holderName,
-        cvv: creditCard.cvv,
-        expirationMonth: creditCard.expirationMonth,
-        expirationYear: creditCard.expirationYear,
-        customerId: this.customer.customerId,
-      };
-      this.paymentService.saveCard(savedCard).subscribe();
-    }
+
     this.rentalService.addToRent(paymentDetail).subscribe(
       (response) => {
+        if (this.creditCardForm.value.wannaSave) {
+          let savedCard: CreditCardModel = {
+            cardNumber: creditCard.cardNumber,
+            holderName: creditCard.holderName,
+            cvv: creditCard.cvv,
+            expirationMonth: creditCard.expirationMonth,
+            expirationYear: creditCard.expirationYear,
+            customerId: this.customer.customerId,
+          };
+          this.paymentService.saveCard(savedCard).subscribe();
+        }
         this.customer.findexPoint += this.totalPoint;
         this.customerService.update(this.customer).subscribe();
         this.toastrService.success(response.message, 'Başarılı');

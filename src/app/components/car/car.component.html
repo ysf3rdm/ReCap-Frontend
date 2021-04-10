@@ -84,5 +84,14 @@
     >
       Geri Dön
     </button>
+    <button
+      *ngIf="isCustomer()"
+      routerLink="/customeradd"
+      type="button"
+      class="btn btn-outline-success"
+      style="float: right"
+    >
+      Müşteri Ol
+    </button>
   </div>
 </div>

@@ -35,29 +35,27 @@ export class CustomerAddComponent implements OnInit {
   }
   createCustomerAddForm() {
     this.customerAddForm = this.formBuilder.group({
-      companyName: ['', Validators.required],
+      companyName: [''],
     });
   }
   addCustomer() {
-    if (this.customerAddForm.value === undefined) {
-      this.customerAddForm.value.companyName = '';
-      console.log('olmadı cürüm');
+    let customerModel = {
+      customerId: 0,
+      userId: this.user.userId,
+      findexPoint: 100,
+      companyName: this.customerAddForm.value.companyName,
+    };
+    if (localStorage.getItem('token')) {
+      this.router.navigate(['cars']);
+      this.toastrService.info('Ana sayfaya yönelendiriliyorsunuz', 'Başarılı');
     } else {
-      let customerModel = {
-        customerId: 0,
-        userId: this.user.userId,
-        findexPoint: 100,
-        companyName: this.customerAddForm.value.companyName,
-      };
-      console.log(customerModel);
       this.router.navigate(['login']);
-      this.customerService.add(customerModel).subscribe((response) => {
-        this.toastrService.info(
-          'Giriş sayfasına yönelendirliyorsunuz',
-          'başarılı'
-        );
-      });
+      this.toastrService.info(
+        'Giriş sayfasına yönelendiriliyorsunuz',
+        'Başarılı'
+      );
     }
+    this.customerService.add(customerModel).subscribe((response) => {});
   }
   getUser() {
     let email = localStorage.getItem('email');
