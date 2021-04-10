@@ -1,5 +1,5 @@
-<div class="content">
-  <div class="col-md-12">
+<div class="row">
+  <div class="col-md-6">
     <div class="card" style="width: 22rem">
       <div class="card-header">
         <i class="fas fa-user-circle"></i>
@@ -15,7 +15,6 @@
                 class="form-control"
                 type="text"
                 id="firstName"
-                value="{{ firstName }}"
                 formControlName="firstName"
               />
             </div>
@@ -29,7 +28,6 @@
                 formControlName="lastName"
                 class="form-control"
                 placeholder=""
-                value="{ lastName }"
               />
             </div>
           </div>
@@ -39,10 +37,31 @@
               <input
                 type="text"
                 id="email"
-                formControlName="email"
                 class="form-control"
                 readonly
-                placeholder="{{ email }}"
+                value="{{ email }}"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password"> Şifre </label>
+            <div class="form-group">
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="passwordConfirm"> Şifreyi Doğrula </label>
+            <div class="form-group">
+              <input
+                type="password"
+                id="passwordConfirm"
+                formControlName="passwordConfirm"
+                class="form-control"
               />
             </div>
           </div>
@@ -55,16 +74,111 @@
                 formControlName="email"
                 class="form-control"
                 readonly
-                placeholder="{{ customer.findexPoint }}"
+                value="{{ customer.findexPoint }}"
               />
             </div>
           </div>
         </form>
       </div>
       <div class="card-footer">
-        <button style="float: right" class="btn btn-fill btn-primary">
+        <button
+          style="float: right"
+          (click)="update()"
+          class="btn btn-fill btn-primary"
+        >
           Güncelle
         </button>
+        <button
+          *ngIf="customer === undefined"
+          style="float: right"
+          (click)="routeToCustomerAdd()"
+          class="btn btn-fill btn-primary"
+        >
+          Müşteri Ol
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col md-6">
+    <div class="card" style="width: 22rem">
+      <div class="card-header">
+        <i class="fas fa-user-circle"></i>
+        <h3 style="text-align: center">Kayıtlı Kartlarınız</h3>
+      </div>
+      <div *ngFor="let card of cards" class="card-body">
+        <div id="form-container">
+          <div id="card-front">
+            <div id="shadow"></div>
+
+            <label for="card-number"> Card Number </label>
+            <input
+              readonly
+              type="text"
+              id="card-number"
+              value="{{ card.cardNumber }}"
+              length="16"
+            />
+            <div id="cardholder-container">
+              <label for="card-holder">Card Holder </label>
+              <input
+                type="text"
+                id="card-holder"
+                readonly
+                value="{{ card.holderName }}"
+              />
+            </div>
+            <!--- end card holder container --->
+            <div id="exp-container">
+              <label for="card-exp"> Expiration </label>
+              <input
+                readonly
+                id="card-month"
+                type="text"
+                placeholder="MM"
+                length="2"
+                value="{{ card.expirationMonth }}"
+              />
+              <input
+                readonly
+                id="card-year"
+                type="text"
+                placeholder="YY"
+                length="2"
+                value="{{ card.expirationYear }}"
+              />
+            </div>
+            <div id="cvc-container">
+              <label for="card-cvc"> CVC/CVV</label>
+              <input
+                readonly
+                id="card-cvc"
+                placeholder="XXX-X"
+                type="text"
+                min-length="3"
+                max-length="3"
+                value="{{ card.cvv }}"
+              />
+              <p>Last 3 or 4 digits</p>
+            </div>
+            <!--- end CVC container --->
+            <!--- end exp container --->
+          </div>
+          <!--- end card front --->
+          <div id="card-back">
+            <div id="card-stripe"></div>
+            <!--- end form container --->
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+            <script
+              type="text/javascript"
+              src="https://js.stripe.com/v2/"
+            ></script>
+            <script src="https://use.fontawesome.com/f1e0bf0cbc.js"></script>
+          </div>
+          <div class="card-footer" style="text-align: center">
+            Kartlarınız bizimle güvende. :)
+          </div>
+        </div>
       </div>
     </div>
   </div>

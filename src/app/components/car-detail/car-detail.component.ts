@@ -109,9 +109,9 @@ export class CarDetailComponent implements OnInit {
   }
   getClaims() {
     let newUser = {
-      Id: parseInt(localStorage.getItem('userId')),
+      userId: parseInt(localStorage.getItem('userId')),
     };
-    this.userService.getClaims(newUser).subscribe((response) => {
+    this.userService.getClaims(newUser.userId).subscribe((response) => {
       this.localStorageService.setClaims(response.data);
     });
   }
