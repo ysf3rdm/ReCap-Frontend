@@ -10,11 +10,13 @@ import { ToastrService } from 'ngx-toastr';
 import { observable } from 'rxjs';
 import { CreditCardModel } from 'src/app/models/creditCardModel';
 import { Customer } from 'src/app/models/customer';
+import { Rental } from 'src/app/models/rental';
 import { User } from 'src/app/models/user';
 import { UserModel } from 'src/app/models/userModel';
 import { CustomerService } from 'src/app/services/customer.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { PaymentService } from 'src/app/services/payment.service';
+import { RentalService } from 'src/app/services/rental.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -23,6 +25,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  rentals: Rental[] = [];
   cards: CreditCardModel[] = [];
   customer: Customer;
   firstName = '';
@@ -38,7 +41,8 @@ export class ProfileComponent implements OnInit {
     private customerService: CustomerService,
     private toastrService: ToastrService,
     private router: Router,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private rentalService: RentalService
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +76,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         this.customer = response.data[0];
         this.getCards();
+        this.getCustomerRentals();
       });
   }
   update() {
@@ -111,6 +116,13 @@ export class ProfileComponent implements OnInit {
       .getCardByCustomer(this.customer.customerId)
       .subscribe((response) => {
         this.cards = response.data;
+      });
+  }
+  getCustomerRentals() {
+    this.rentalService
+      .getCustomerRental(this.customer.customerId)
+      .subscribe((response) => {
+        this.rentals = response.data;
       });
   }
 }

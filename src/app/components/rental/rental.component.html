@@ -25,8 +25,8 @@
     <tr *ngFor="let rental of rentals">
       <td>{{ rental.carId }}</td>
       <td>{{ rental.customerId }}</td>
-      <td>{{ rental.rentDate }}</td>
-      <td>{{ rental.returnDate }}</td>
+      <td>{{ rental.rentDate | date: "dd-MM-yy" }}</td>
+      <td>{{ rental.returnDate | date: "dd-MM-yy" }}</td>
       <td>{{ rental.totalPrice | currency: "₺" }}</td>
     </tr>
   </tbody>

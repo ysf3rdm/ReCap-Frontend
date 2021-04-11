@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-5">
     <div class="card" style="width: 22rem">
       <div class="card-header">
         <h3 style="text-align: center">{{ firstName }} {{ lastName }}</h3>
@@ -98,85 +98,63 @@
       </div>
     </div>
   </div>
-  <div class="col md-6">
-    <div class="card" style="width: 22rem">
+  <div class="col md-7">
+    <div class="card" style="width: 34rem">
       <div class="card-header">
         <i class="fas fa-user-circle"></i>
         <h3 style="text-align: center">Kayıtlı Kartlarınız</h3>
       </div>
       <div *ngFor="let card of cards" class="card-body">
-        <div id="form-container">
-          <div id="card-front">
-            <div id="shadow"></div>
-
-            <label for="card-number"> Card Number </label>
-            <input
-              readonly
-              type="text"
-              id="card-number"
-              value="{{ card.cardNumber }}"
-              length="16"
-            />
-            <div id="cardholder-container">
-              <label for="card-holder">Card Holder </label>
-              <input
-                type="text"
-                id="card-holder"
-                readonly
-                value="{{ card.holderName }}"
-              />
-            </div>
-            <!--- end card holder container --->
-            <div id="exp-container">
-              <label for="card-exp"> Expiration </label>
-              <input
-                readonly
-                id="card-month"
-                type="text"
-                placeholder="MM"
-                length="2"
-                value="{{ card.expirationMonth }}"
-              />
-              <input
-                readonly
-                id="card-year"
-                type="text"
-                placeholder="YY"
-                length="2"
-                value="{{ card.expirationYear }}"
-              />
-            </div>
-            <div id="cvc-container">
-              <label for="card-cvc"> CVC/CVV</label>
-              <input
-                readonly
-                id="card-cvc"
-                placeholder="XXX-X"
-                type="text"
-                min-length="3"
-                max-length="3"
-                value="{{ card.cvv }}"
-              />
-              <p>Last 3 or 4 digits</p>
-            </div>
-            <!--- end CVC container --->
-            <!--- end exp container --->
-          </div>
-          <!--- end card front --->
-          <div id="card-back">
-            <div id="card-stripe"></div>
-            <!--- end form container --->
-
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-            <script
-              type="text/javascript"
-              src="https://js.stripe.com/v2/"
-            ></script>
-            <script src="https://use.fontawesome.com/f1e0bf0cbc.js"></script>
-          </div>
-          <div class="card-footer" style="text-align: center">
-            Kartlarınız bizimle güvende. :)
-          </div>
+        <table
+          class="table table-responsive-md table-striped table-hover table-bordered"
+        >
+          <thead>
+            <tr>
+              <th>Kart Üstündeki İsim</th>
+              <th>Kart Numarası</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ card.holderName }}</td>
+              <td>{{ card.cardNumber }}</td>
+              <td>
+                <button class="btn btn-fill btn-danger">Sil</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <label></label>
+    <div class="col md-7">
+      <div class="card" style="width: 34rem">
+        <div class="card-header">
+          <i class="fas fa-user-circle"></i>
+          <h3 style="text-align: center">Kiralamalarınız</h3>
+        </div>
+        <div *ngFor="let rental of rentals" class="card-body">
+          <table
+            class="table table-responsive-md table-striped table-hover table-bordered"
+          >
+            <thead>
+              <tr>
+                <th>Araba ID</th>
+                <th>Alış Tarihi</th>
+                <th>İade Tarihi</th>
+                <th>Toplam Tutar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ rental.carId }}</td>
+                <td>{{ rental.rentDate | date: "dd-MM-yy" }}</td>
+                <td>{{ rental.returnDate | date: "dd-MM-yy" }}</td>
+                <td>{{ rental.totalPrice | currency: "₺" }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

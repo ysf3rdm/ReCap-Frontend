@@ -1,4 +1,4 @@
-<div
+<!-- <div
   *ngIf="dataLoaded == false"
   class="spinner-border text-primary"
   role="status"
@@ -62,6 +62,61 @@
           style="float: right"
         >
           Detayları Gör
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="cars">
+  <div
+    *ngFor="let car of carDetails | filterPipe: filterText"
+    class="card"
+    style="width: 25rem; float: right"
+  >
+    <div class="imgBx">
+      <img
+        *ngFor="let image of images"
+        [src]="getImagePath(car.imagePath)"
+        class="card-img-top"
+      />
+    </div>
+    <div class="contentBx">
+      <div class="content">
+        <div class="row">
+          <div class="col-md-6">MARKA</div>
+          <div class="col-md-6" style="text-align: right">
+            {{ car.brandName | uppercase }}
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-6">RENK</div>
+          <div class="col-md-6" style="text-align: right">
+            {{ car.colorName | uppercase }}
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-6">MODEL YILI</div>
+          <div class="col-md-6" style="text-align: right">
+            {{ car.modelYear }}
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-6">GÜNLÜK FİYAT</div>
+          <div class="col-md-6" style="text-align: right">
+            {{ car.dailyPrice | currency: "₺" }}
+          </div>
+        </div>
+        <hr />
+        <button
+          routerLink="/cardetail/{{ car.carId }}"
+          type="button"
+          class="btn btn-outline-primary btnCarDetail"
+        >
+          <div class="text">Detaylar</div>
         </button>
       </div>
     </div>

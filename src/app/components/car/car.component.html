@@ -19,7 +19,7 @@
           <thead>
             <tr>
               <th>Resim(ler)</th>
-              <th>Id</th>
+
               <th>Markası</th>
               <th>Araba Adı</th>
               <th>Model Yılı</th>
@@ -39,7 +39,7 @@
                   src="https://localhost:44368\{{ image.imagePath }}"
                 />
               </td>
-              <td>{{ carDetails?.carId }}</td>
+
               <td>{{ carDetails?.brandName }}</td>
               <td>{{ carDetails?.carName }}</td>
               <td>{{ carDetails?.modelYear }}</td>
@@ -56,7 +56,7 @@
                   class="btn btn-outline-success"
                   style="float: right"
                 >
-                  Kirala
+                  {{ carDetails?.dailyPrice | currency: "₺" }} Kirala
                 </button>
               </td>
               <td *ngIf="!isFindexEnough()">Findex Puanınız Yetersiz</td>

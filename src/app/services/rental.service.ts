@@ -5,8 +5,6 @@ import { CarDetail } from '../models/car-detail';
 import { ListResponseModel } from '../models/listResponseModel';
 import { PaymentDetail } from '../models/paymentDetail';
 import { Rental } from '../models/rental';
-import { RentItem } from '../models/rentItem';
-import { RentItems } from '../models/rentItems';
 import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
