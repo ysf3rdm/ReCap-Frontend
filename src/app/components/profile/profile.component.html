@@ -101,14 +101,18 @@
         </div>
       </div>
     </div>
-    <div class="col md-7">
-      <div class="card" style="width: 34rem">
+    <div class="col-md-7">
+      <div class="card">
         <div class="card-header">
           <i class="fas fa-user-circle"></i>
           <h3 style="text-align: center">Kayıtlı Kartlarınız</h3>
-          <div style="text-align: center" *ngIf="isHaveCard()">
-            Kayıtlı kartınız bulunmamaktadır
-          </div>
+        </div>
+        <div
+          class="card-footer"
+          style="text-align: center"
+          *ngIf="isHaveCard()"
+        >
+          Kayıtlı kartınız bulunmamaktadır
         </div>
         <div *ngFor="let card of cards" class="card-body">
           <table
@@ -119,6 +123,7 @@
               <tr>
                 <th>Kart Üstündeki İsim</th>
                 <th>Kart Numarası</th>
+
                 <th></th>
               </tr>
             </thead>
@@ -126,8 +131,14 @@
               <tr>
                 <td>{{ card.holderName }}</td>
                 <td>{{ card.cardNumber }}</td>
+
                 <td>
-                  <button class="btn btn-fill btn-danger">Sil</button>
+                  <button
+                    class="btn btn-fill btn-danger"
+                    (click)="deleteCard(card.id)"
+                  >
+                    Sil
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -136,10 +147,17 @@
       </div>
       <label></label>
       <div class="col md-7">
-        <div class="card" style="width: 34rem">
+        <div class="card">
           <div class="card-header">
             <i class="fas fa-user-circle"></i>
             <h3 style="text-align: center">Kiralamalarınız</h3>
+          </div>
+          <div
+            class="card-footer"
+            style="text-align: center"
+            *ngIf="isHaveRental()"
+          >
+            Kayıtlı kiralamanız bulunmamaktadır
           </div>
           <div *ngFor="let rental of rentals" class="card-body">
             <table

@@ -148,6 +148,7 @@ export class PaymentComponent implements OnInit {
       totalPrice: this.totalPrice,
     };
     let creditCard: CreditCard = {
+      id: 0,
       cardNumber: this.creditCardForm.value.cardNumber.toString(),
       holderName: this.creditCardForm.value.holderName,
       cvv: this.creditCardForm.value.ccv.toString(),
@@ -163,6 +164,7 @@ export class PaymentComponent implements OnInit {
       (response) => {
         if (this.creditCardForm.value.wannaSave) {
           let savedCard: CreditCardModel = {
+            id: 0,
             cardNumber: creditCard.cardNumber,
             holderName: creditCard.holderName,
             cvv: creditCard.cvv,
@@ -172,7 +174,7 @@ export class PaymentComponent implements OnInit {
           };
           this.paymentService.saveCard(savedCard).subscribe(
             (response) => {
-              this.toastrService.success(response.message, 'Başarılı');
+              this.toastrService.success('Kartınız başarıyla kaydedildi', 'Başarılı');
             },
             (errorResponse) => {
               this.toastrService.info(

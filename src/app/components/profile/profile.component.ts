@@ -133,4 +133,26 @@ export class ProfileComponent implements OnInit {
       return false;
     }
   }
+  isHaveRental() {
+    if (this.rentals[0]?.carId === undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  deleteCard(cardNumber: number) {
+    this.paymentService.getCardByCardId(cardNumber).subscribe((response) => {
+      let deletedCard = response.data;
+      console.log(deletedCard);
+      this.paymentService.delete(deletedCard[0]).subscribe(
+        (response) => {
+          this.toastrService.success('Başarıyla Silindi', 'Başarılı');
+          window.location.reload();
+        },
+        (errorResponse) => {
+          this.toastrService.error('Başarısız', 'Hatalı');
+        }
+      );
+    });
+  }
 }
