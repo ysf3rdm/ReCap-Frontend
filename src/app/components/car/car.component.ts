@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/services/car.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CarDetail } from 'src/app/models/car-detail';
 import { RentalService } from 'src/app/services/rental.service';
 import { ImageService } from 'src/app/services/image.service';
@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Rental } from 'src/app/models/rental';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/app/models/customer';
+import { Car } from 'src/app/models/car';
 
 @Component({
   selector: 'app-car',
@@ -27,7 +28,7 @@ export class CarComponent implements OnInit {
   totalPrice: number;
   returnDate: Date;
   carDetails: CarDetail;
-  currentCar: CarDetail;
+  currentCar: Car;
   images: Image[] = [];
   dataLoaded = false;
   rentalDetail: Rental;
@@ -38,7 +39,8 @@ export class CarComponent implements OnInit {
     private imageService: ImageService,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -96,5 +98,25 @@ export class CarComponent implements OnInit {
     } else {
       return false;
     }
+  }
+  deleteCar() {
+    this.carService
+      .getCarByCarId(this.carDetails.carId)
+      .subscribe((response) => {
+        let deletedCar = response.data[0];
+        this.carService.delete(deletedCar).subscribe(
+          (response1) => {
+            this.toastrService.success(response1.message, 'Başarılı');
+            this.router.navigate(['/']).then(() =>
+              setTimeout(function () {
+                window.location.reload();
+              }, 1000)
+            );
+          },
+          (errorResponse) => {
+            this.toastrService.error('Başarısız');
+          }
+        );
+      });
   }
 }

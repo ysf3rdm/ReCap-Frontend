@@ -1,34 +1,46 @@
-<div class="row mt-4">
+<div class="container">
   <div>
-    <table class="table table-hover table-striped border">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Marka Adı</th>
-          <th class="text-end"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let brand of brands | brandFilter: filterText">
-          <th>{{ brand.brandId }}</th>
-          <td>{{ brand.brandName }}</td>
-          <td class="text-end">
-            <button
-              class="btn btn-sm btn-success px-2"
-              routerLink="/brands/update/{{ brand.brandId }}"
-            >
-              <i class="bi-pencil me-1"></i>Güncelle
-            </button>
-            <a>. . .</a>
-            <button
-              class="btn btn-sm btn-danger px-2"
-              (click)="deleteBrand(brand)"
-            >
-              <i class="bi-pencil me-1"></i>Sil
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <app-navi> </app-navi>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <app-brand></app-brand>
+    </div>
+    <div class="col-md-9">
+      <div class="row mt-4">
+        <div>
+          <table class="table table-hover table-striped border">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Marka Adı</th>
+                <th class="text-end"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let brand of brands | brandFilter: filterText">
+                <th>{{ brand.brandId }}</th>
+                <td>{{ brand.brandName }}</td>
+                <td class="text-end">
+                  <button
+                    class="btn btn-sm btn-success px-2"
+                    routerLink="/brands/update/{{ brand.brandId }}"
+                  >
+                    <i class="bi-pencil me-1"></i>Güncelle
+                  </button>
+                  <a>. . .</a>
+                  <button
+                    class="btn btn-sm btn-danger px-2"
+                    (click)="deleteBrand(brand)"
+                  >
+                    <i class="bi-pencil me-1"></i>Sil
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

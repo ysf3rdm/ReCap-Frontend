@@ -135,6 +135,15 @@
     <div class="col-md-6">
       <div class="card" style="width: 35rem">
         <div class="card-header">
+          <button
+            *ngIf="isAdmin()"
+            type="button"
+            (click)="deleteCar()"
+            class="btn btn-outline-danger"
+            style="float: right"
+          >
+            Sil
+          </button>
           <h5 class="card-title">ARABA DETAYLARI</h5>
         </div>
 
@@ -194,6 +203,15 @@
               style="float: left"
             >
               Müşteri Ol
+            </button>
+            <button
+              *ngIf="isAdmin()"
+              type="button"
+              class="btn btn-outline-secondary"
+              routerLink="update/{{ carDetails?.carId }}"
+              style="float: left"
+            >
+              Güncelle
             </button>
           </div>
         </div>

@@ -1,72 +1,3 @@
-<!-- <div
-  *ngIf="dataLoaded == false"
-  class="spinner-border text-primary"
-  role="status"
->
-  <span class="visually-hidden"></span>
-</div>
-<div class="mb-3">
-  <label for="filterText" class="form-label">Ürün Ara</label>
-  <input
-    type="text"
-    [(ngModel)]="filterText"
-    class="form-control"
-    id="filterText"
-    placeholder="arama ifadesi giriniz"
-  />
-</div>
-
-<div *ngIf="filterText" class="alert alert-success">
-  {{ filterText }} aradınız
-</div>
-<div>
-  <button
-    *ngIf="isAdmin()"
-    class="btn btn-outline-primary mr-2"
-    ngbAutofocus
-    routerLink="/cars/carAdd"
-  >
-    Araba Ekle
-  </button>
-</div>
-<div
-  class="d-flex flex-wrap justify-content-center justify-content-xl-start"
-  style="gap: 0.45em; padding: 0; margin-top: 20px"
->
-  <div
-    *ngFor="let car of carDetails | filterPipe: filterText"
-    class="card"
-    style="width: 19rem"
-  >
-    <div class="d-flex" style="height: 60%">
-      <img [src]="getImagePath(car.imagePath)" class="card-img-top" />
-    </div>
-    <div class="h-100 bg-light border rounded-3">
-      <h3 class="card-title text-center">{{ car.carName }}</h3>
-      <h5 class="card-title text-center">
-        <b>{{ car.description }}</b>
-      </h5>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item text-center">
-        Günlük Ücret:
-        {{ car.dailyPrice | currency: "₺" }}
-      </li>
-    </ul>
-    <div>
-      <div class="h-500 bg-light">
-        <button
-          class="btn btn-outline-secondary"
-          routerLink="/cardetail/{{ car.carId }}"
-          type="button"
-          style="float: right"
-        >
-          Detayları Gör
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="container">
   <div>
     <app-navi> </app-navi>
@@ -76,56 +7,73 @@
       <app-brand></app-brand>
     </div>
     <div class="col-md-9">
-      <div class="cars">
+      <div>
         <div
-          *ngFor="let car of carDetails | filterPipe: filterText"
-          class="card"
-          style="width: 25rem; float: right"
+          *ngIf="dataLoaded == false"
+          class="spinner-border text-primary"
+          role="status"
         >
-          <div class="imgBx">
-            <img
-              *ngFor="let image of images"
-              [src]="getImagePath(car.imagePath)"
-              class="card-img-top"
-            />
-          </div>
-          <div class="contentBx">
-            <div class="content">
-              <div class="row">
-                <div class="col-md-6">MARKA</div>
-                <div class="col-md-6" style="text-align: right">
-                  {{ car.brandName | uppercase }}
-                </div>
+          <span class="visually-hidden"></span>
+        </div>
+        <div class="mb-3">
+          <label for="filterText" class="form-label">Ürün Ara</label>
+          <input
+            type="text"
+            [(ngModel)]="filterText"
+            class="form-control"
+            id="filterText"
+            placeholder="arama ifadesi giriniz"
+          />
+        </div>
+
+        <div *ngIf="filterText" class="alert alert-success">
+          {{ filterText }} aradınız
+        </div>
+        <div>
+          <button
+            *ngIf="isAdmin()"
+            class="btn btn-outline-primary mr-2"
+            ngbAutofocus
+            routerLink="/cars/carAdd"
+          >
+            Araba Ekle
+          </button>
+        </div>
+        <div
+          class="d-flex flex-wrap justify-content-center justify-content-xl-start"
+          style="gap: 0.45em; padding: 0; margin-top: 20px"
+        >
+          <div
+            *ngFor="let car of carDetails | filterPipe: filterText"
+            class="card"
+            style="width: 19rem"
+          >
+            <div class="d-flex" style="height: 70%">
+              <img [src]="getImagePath(car.imagePath)" class="card-img-top" />
+            </div>
+            <div class="h-100 bg-light border rounded-3">
+              <h3 class="card-title text-center">{{ car.carName }}</h3>
+              <h5 class="card-title text-center">
+                <b>{{ car.description }}</b>
+              </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-center">
+                Günlük Ücret:
+                {{ car.dailyPrice | currency: "₺" }}
+              </li>
+            </ul>
+            <div>
+              <div class="h-500 bg-light">
+                <button
+                  class="btn btn-outline-secondary"
+                  routerLink="/cardetail/{{ car.carId }}"
+                  type="button"
+                  style="float: right"
+                >
+                  Detayları Gör
+                </button>
               </div>
-              <hr />
-              <div class="row">
-                <div class="col-md-6">RENK</div>
-                <div class="col-md-6" style="text-align: right">
-                  {{ car.colorName | uppercase }}
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-md-6">MODEL YILI</div>
-                <div class="col-md-6" style="text-align: right">
-                  {{ car.modelYear }}
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-md-6">GÜNLÜK FİYAT</div>
-                <div class="col-md-6" style="text-align: right">
-                  {{ car.dailyPrice | currency: "₺" }}
-                </div>
-              </div>
-              <hr />
-              <button
-                routerLink="/cardetail/{{ car.carId }}"
-                type="button"
-                class="btn btn-outline-primary btnCarDetail"
-              >
-                <div class="text">Detaylar</div>
-              </button>
             </div>
           </div>
         </div>

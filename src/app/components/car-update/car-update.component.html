@@ -1,124 +1,134 @@
-<div class="content">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h5>Araba Güncelle</h5>
-      </div>
-      <div class="card-body">
-        <form [formGroup]="carUpdateForm">
-          <div class="mb-3">
-            <label for="carName">
-              Araba Adı<small>
-                ===> şu anki adı: {{ carDetail?.carName }}
-              </small></label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="carName"
-                formControlName="carName"
-                class="form-control"
-                placeholder="Araba Adı"
-              />
+<div class="container">
+  <div>
+    <app-navi> </app-navi>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <app-brand></app-brand>
+    </div>
+    <div class="col-md-9">
+      <div class="content">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5>Araba Güncelle</h5>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="carUpdateForm">
+                <div class="mb-3">
+                  <label for="carName">
+                    Araba Adı<small>
+                      ===> şu anki adı: {{ carDetail?.carName }}
+                    </small></label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="carName"
+                      formControlName="carName"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label>Markası</label>
+                  <select
+                    formControlName="brandId"
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option
+                      *ngFor="let brand of brands"
+                      value="{{ brand.brandId }}"
+                    >
+                      {{ brand.brandName }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <div>
+                    <label>Renk Seçin</label>
+                    <select
+                      formControlName="colorId"
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option
+                        *ngFor="let color of colors"
+                        value="{{ color.colorId }}"
+                      >
+                        {{ color.colorName }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="modelYear">
+                    Model Yılı
+                    <small>
+                      ===> şu anki modeli: {{ carDetail?.modelYear }}
+                    </small></label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="modelYear"
+                      formControlName="modelYear"
+                      class="form-control"
+                      value="{{ carDetail?.modelYear }}"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="dailyPrice">
+                    Günlük Ücret
+                    <small>
+                      ===> şu anki ücreti: {{ carDetail?.dailyPrice }}
+                    </small></label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="dailyPrice"
+                      formControlName="dailyPrice"
+                      class="form-control"
+                      value="{{ carDetail?.dailyPrice }}"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="description">
+                    Açıklama
+                    <small>
+                      ===> şu anki açıklama: {{ carDetail?.description }}
+                    </small></label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="description"
+                      formControlName="description"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-fill btn-secondary" (click)="updateCar()">
+                Güncelle
+              </button>
+              <button
+                class="btn btn-fill btn-warning"
+                routerLink="/cars/cardetail/{{ carDetail?.carId }}"
+                style="float: right"
+              >
+                Geri Dön
+              </button>
             </div>
           </div>
-          <div class="mb-3">
-            <label for="brandId">
-              Marka ID
-              <small>
-                ===> şu anki marka: {{ carDetail?.brandName }}
-              </small></label
-            >
-            <div class="form-group">
-              <input
-                type="number"
-                id="brandId"
-                formControlName="brandId"
-                class="form-control"
-                placeholder="Marka "
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="colorId">
-              Renk ID<small>
-                ===> şu anki rengi: {{ carDetail?.colorName }}
-              </small></label
-            >
-            <div class="form-group">
-              <input
-                type="number"
-                id="colorId"
-                formControlName="colorId"
-                class="form-control"
-                placeholder="Renk"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="modelYear">
-              Model Yılı
-              <small>
-                ===> şu anki modeli: {{ carDetail?.modelYear }}
-              </small></label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="modelYear"
-                formControlName="modelYear"
-                class="form-control"
-                placeholder="Modeli"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="dailyPrice">
-              Günlük Ücret
-              <small>
-                ===> şu anki ücreti: {{ carDetail?.dailyPrice }}
-              </small></label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="dailyPrice"
-                formControlName="dailyPrice"
-                class="form-control"
-                placeholder="Ücret"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="description">
-              Açıklama
-              <small>
-                ===> şu anki açıklama: {{ carDetail?.description }}
-              </small></label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="description"
-                formControlName="description"
-                class="form-control"
-                placeholder="Açıklama"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-fill btn-secondary" (click)="updateCar()">
-          Güncelle
-        </button>
-        <button
-          class="btn btn-fill btn-warning"
-          routerLink="/cars/cardetail/{{ carDetail?.carId }}"
-          style="float: right"
-        >
-          Geri Dön
-        </button>
+        </div>
       </div>
     </div>
   </div>
