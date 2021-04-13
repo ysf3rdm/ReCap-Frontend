@@ -1,33 +1,38 @@
-<div
-  *ngIf="dataLoaded == false"
-  class="spinner-border text-primary"
-  role="status"
->
-  <span class="visually-hidden"></span>
+<div class="container">
+  <div>
+    <app-navi></app-navi>
+  </div>
+  <div
+    *ngIf="dataLoaded == false"
+    class="spinner-border text-primary"
+    role="status"
+  >
+    <span class="visually-hidden"></span>
+  </div>
+  <table
+    *ngIf="dataLoaded == true"
+    class="table table-responsive-md table-striped table-hover table-bordered"
+  >
+    <thead>
+      <caption>
+        Kiralamalar
+      </caption>
+      <tr>
+        <th>Car Id</th>
+        <th>Customer Id</th>
+        <th>Kiralama Tarihi</th>
+        <th>Dönüş Tarihi</th>
+        <th>Toplam Ücret</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rental of rentals">
+        <td>{{ rental.carId }}</td>
+        <td>{{ rental.customerId }}</td>
+        <td>{{ rental.rentDate | date: "dd-MM-yy" }}</td>
+        <td>{{ rental.returnDate | date: "dd-MM-yy" }}</td>
+        <td>{{ rental.totalPrice | currency: "₺" }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-<table
-  *ngIf="dataLoaded == true"
-  class="table table-responsive-md table-striped table-hover table-bordered"
->
-  <thead>
-    <caption>
-      Kiralamalar
-    </caption>
-    <tr>
-      <th>Car Id</th>
-      <th>Customer Id</th>
-      <th>Kiralama Tarihi</th>
-      <th>Dönüş Tarihi</th>
-      <th>Toplam Ücret</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let rental of rentals">
-      <td>{{ rental.carId }}</td>
-      <td>{{ rental.customerId }}</td>
-      <td>{{ rental.rentDate | date: "dd-MM-yy" }}</td>
-      <td>{{ rental.returnDate | date: "dd-MM-yy" }}</td>
-      <td>{{ rental.totalPrice | currency: "₺" }}</td>
-    </tr>
-  </tbody>
-</table>

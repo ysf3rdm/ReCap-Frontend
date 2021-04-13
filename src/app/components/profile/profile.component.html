@@ -1,160 +1,168 @@
-<div class="row">
-  <div class="col-md-5">
-    <div class="card" style="width: 22rem">
-      <div class="card-header">
-        <h3 style="text-align: center">{{ firstName }} {{ lastName }}</h3>
-      </div>
+<div class="container">
+  <app-navi></app-navi>
 
-      <div class="card-body">
-        <form [formGroup]="userUpdateForm">
-          <div class="mb-3">
-            <label for="firstName"> İSİM </label>
-            <div class="form-group">
-              <input
-                class="form-control"
-                type="text"
-                id="firstName"
-                formControlName="firstName"
-              />
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card" style="width: 22rem, margin auto">
+        <div class="card-header">
+          <h3 style="text-align: center">{{ firstName }} {{ lastName }}</h3>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="userUpdateForm">
+            <div class="mb-3">
+              <label for="firstName"> İSİM </label>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="text"
+                  id="firstName"
+                  formControlName="firstName"
+                />
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label for="lastName"> SOYİSİM </label>
-            <div class="form-group">
-              <input
-                type="text"
-                id="lastName"
-                formControlName="lastName"
-                class="form-control"
-                placeholder=""
-              />
+            <div class="mb-3">
+              <label for="lastName"> SOYİSİM </label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="lastName"
+                  formControlName="lastName"
+                  class="form-control"
+                  placeholder=""
+                />
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label for="email"> EMAİL </label>
-            <div class="form-group">
-              <input
-                type="text"
-                id="email"
-                class="form-control"
-                readonly
-                value="{{ email }}"
-              />
+            <div class="mb-3">
+              <label for="email"> EMAİL </label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="email"
+                  class="form-control"
+                  readonly
+                  value="{{ email }}"
+                />
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label for="password"> Şifre </label>
-            <div class="form-group">
-              <input
-                type="password"
-                id="password"
-                formControlName="password"
-                class="form-control"
-              />
+            <div class="mb-3">
+              <label for="password"> Şifre </label>
+              <div class="form-group">
+                <input
+                  type="password"
+                  id="password"
+                  formControlName="password"
+                  class="form-control"
+                />
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label for="passwordConfirm"> Şifreyi Doğrula </label>
-            <div class="form-group">
-              <input
-                type="password"
-                id="passwordConfirm"
-                formControlName="passwordConfirm"
-                class="form-control"
-              />
+            <div class="mb-3">
+              <label for="passwordConfirm"> Şifreyi Doğrula </label>
+              <div class="form-group">
+                <input
+                  type="password"
+                  id="passwordConfirm"
+                  formControlName="passwordConfirm"
+                  class="form-control"
+                />
+              </div>
             </div>
-          </div>
-          <div *ngIf="customer?.findexPoint" class="mb-3">
-            <label for="email"> Findeks Puanınız: </label>
-            <div class="form-group">
-              <input
-                type="text"
-                id="email"
-                formControlName="email"
-                class="form-control"
-                readonly
-                value="{{ customer.findexPoint }}"
-              />
+            <div *ngIf="customer?.findexPoint" class="mb-3">
+              <label for="email"> Findeks Puanınız: </label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="email"
+                  formControlName="email"
+                  class="form-control"
+                  readonly
+                  value="{{ customer.findexPoint }}"
+                />
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="card-footer">
-        <button
-          style="float: right"
-          (click)="update()"
-          class="btn btn-fill btn-primary"
-        >
-          Güncelle
-        </button>
-        <button
-          *ngIf="customer === undefined"
-          style="float: right"
-          (click)="routeToCustomerAdd()"
-          class="btn btn-fill btn-primary"
-        >
-          Müşteri Ol
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="col md-7">
-    <div class="card" style="width: 34rem">
-      <div class="card-header">
-        <i class="fas fa-user-circle"></i>
-        <h3 style="text-align: center">Kayıtlı Kartlarınız</h3>
-      </div>
-      <div *ngFor="let card of cards" class="card-body">
-        <table
-          class="table table-responsive-md table-striped table-hover table-bordered"
-        >
-          <thead>
-            <tr>
-              <th>Kart Üstündeki İsim</th>
-              <th>Kart Numarası</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ card.holderName }}</td>
-              <td>{{ card.cardNumber }}</td>
-              <td>
-                <button class="btn btn-fill btn-danger">Sil</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button
+            style="float: right"
+            (click)="update()"
+            class="btn btn-fill btn-primary"
+          >
+            Güncelle
+          </button>
+          <button
+            *ngIf="customer === undefined"
+            style="float: right"
+            (click)="routeToCustomerAdd()"
+            class="btn btn-fill btn-primary"
+          >
+            Müşteri Ol
+          </button>
+        </div>
       </div>
     </div>
-    <label></label>
     <div class="col md-7">
       <div class="card" style="width: 34rem">
         <div class="card-header">
           <i class="fas fa-user-circle"></i>
-          <h3 style="text-align: center">Kiralamalarınız</h3>
+          <h3 style="text-align: center">Kayıtlı Kartlarınız</h3>
+          <div style="text-align: center" *ngIf="isHaveCard()">
+            Kayıtlı kartınız bulunmamaktadır
+          </div>
         </div>
-        <div *ngFor="let rental of rentals" class="card-body">
+        <div *ngFor="let card of cards" class="card-body">
           <table
+            *ngIf="!isHaveCard()"
             class="table table-responsive-md table-striped table-hover table-bordered"
           >
             <thead>
               <tr>
-                <th>Araba ID</th>
-                <th>Alış Tarihi</th>
-                <th>İade Tarihi</th>
-                <th>Toplam Tutar</th>
+                <th>Kart Üstündeki İsim</th>
+                <th>Kart Numarası</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{ rental.carId }}</td>
-                <td>{{ rental.rentDate | date: "dd-MM-yy" }}</td>
-                <td>{{ rental.returnDate | date: "dd-MM-yy" }}</td>
-                <td>{{ rental.totalPrice | currency: "₺" }}</td>
+                <td>{{ card.holderName }}</td>
+                <td>{{ card.cardNumber }}</td>
+                <td>
+                  <button class="btn btn-fill btn-danger">Sil</button>
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <label></label>
+      <div class="col md-7">
+        <div class="card" style="width: 34rem">
+          <div class="card-header">
+            <i class="fas fa-user-circle"></i>
+            <h3 style="text-align: center">Kiralamalarınız</h3>
+          </div>
+          <div *ngFor="let rental of rentals" class="card-body">
+            <table
+              class="table table-responsive-md table-striped table-hover table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>Araba ID</th>
+                  <th>Alış Tarihi</th>
+                  <th>İade Tarihi</th>
+                  <th>Toplam Tutar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ rental.carId }}</td>
+                  <td>{{ rental.rentDate | date: "dd-MM-yy" }}</td>
+                  <td>{{ rental.returnDate | date: "dd-MM-yy" }}</td>
+                  <td>{{ rental.totalPrice | currency: "₺" }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

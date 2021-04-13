@@ -77,6 +77,7 @@ export class ProfileComponent implements OnInit {
         this.customer = response.data[0];
         this.getCards();
         this.getCustomerRentals();
+        this.isHaveCard();
       });
   }
   update() {
@@ -124,5 +125,12 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         this.rentals = response.data;
       });
+  }
+  isHaveCard() {
+    if (this.cards[0]?.cardNumber === undefined) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

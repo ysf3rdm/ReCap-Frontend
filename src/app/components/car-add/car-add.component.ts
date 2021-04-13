@@ -69,19 +69,22 @@ export class CarAddComponent implements OnInit {
         findexPoint: this.carAddForm.value.findexPoint,
         giveToPoint: this.carAddForm.value.giveToPoint,
       };
-      console.log(carModel);
+
       this.carService.add(carModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Başarılı');
         },
         (responseError) => {
-          if (responseError.error.Errors.length > 0) {
+          if (responseError.error.Errors?.length > 0) {
             for (let i = 0; i < responseError.error.Errors.length; i++) {
+              console.log(responseError);
               this.toastrService.error(
                 responseError.error.Errors[i].ErrorMessage,
-                'doğrulama hatası'
+                'Doğrulama Hatası'
               );
             }
+          } else {
+            this.toastrService.error(responseError.error.message);
           }
         }
       );

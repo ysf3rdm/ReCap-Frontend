@@ -136,6 +136,7 @@ export class PaymentComponent implements OnInit {
       );
       this.totalPrice = this.totalDay * this.currentCar.dailyPrice;
       this.addPoint();
+      this.baba = true;
     }
   }
   pay() {
