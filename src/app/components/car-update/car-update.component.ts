@@ -53,7 +53,6 @@ export class CarUpdateComponent implements OnInit {
       this.carDetail = response.data[0];
       this.dataLoaded = true;
     });
-    this.setProperties(this.carDetail);
   }
   getImagesByCarId(carId: number) {
     this.imageService.getImagesByCarId(carId).subscribe((response) => {
@@ -74,6 +73,7 @@ export class CarUpdateComponent implements OnInit {
   updateCar() {
     let newCar = Object.assign({}, this.carUpdateForm.value);
     newCar.carId = this.carDetail.carId;
+    console.log(this.carUpdateForm);
     console.log(newCar);
     this.carService.update(newCar).subscribe((response) => {
       console.log(response);
@@ -90,10 +90,18 @@ export class CarUpdateComponent implements OnInit {
       this.colors = response.data;
     });
   }
-  setProperties(car: CarDetail) {
-    this.carUpdateForm.patchValue({
-      description: car.description,
-      carName: car.carName,
-    });
+  setSelectedColor(colorId: number) {
+    if (colorId == this.carDetail?.colorId) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  setSelectedBrand(brandId: number) {
+    if (brandId == this.carDetail?.brandId) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

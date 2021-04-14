@@ -30,22 +30,32 @@ export class ColorUpdateComponent implements OnInit {
       this.getColorById(params['colorId']);
     });
     this.createColorUpdateForm();
+    this.setValue();
   }
-  createColorUpdateForm() {
+  async createColorUpdateForm() {
     this.colorUpdateForm = this.formBuilder.group({
       colorName: ['', Validators.required],
     });
+    return true;
   }
-  getColorById(colorId: number) {
+
+  async getColorById(colorId: number) {
     this.colorService.getColorById(colorId).subscribe((response) => {
-      this.color = response.data[0];
+      return response.data[0];
     });
   }
   updateColor() {
     let newColor = Object.assign({}, this.colorUpdateForm.value);
+    console.log(this.colorUpdateForm);
     newColor.colorId = this.color.colorId;
     this.colorService.updateColor(newColor).subscribe((response) => {
       this.toastrService.success('Başarıyla Güncellendi', 'Başarılı');
+    });
+  }
+  async setValue() {
+    await Promise.resolve(this.color);
+    this.colorUpdateForm.setValue({
+      colorName: this.color.colorName,
     });
   }
 }

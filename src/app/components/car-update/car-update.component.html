@@ -16,17 +16,14 @@
             <div class="card-body">
               <form [formGroup]="carUpdateForm">
                 <div class="mb-3">
-                  <label for="carName">
-                    Araba Adı<small>
-                      ===> şu anki adı: {{ carDetail?.carName }}
-                    </small></label
-                  >
+                  <label for="carName"> Araba Adı </label>
                   <div class="form-group">
                     <input
                       type="text"
                       id="carName"
                       formControlName="carName"
                       class="form-control"
+                      [value]="carDetail?.carName"
                     />
                   </div>
                 </div>
@@ -40,6 +37,7 @@
                     <option
                       *ngFor="let brand of brands"
                       value="{{ brand.brandId }}"
+                      [selected]="setSelectedBrand(brand.brandId)"
                     >
                       {{ brand.brandName }}
                     </option>
@@ -57,6 +55,7 @@
                       <option
                         *ngFor="let color of colors"
                         value="{{ color.colorId }}"
+                        [selected]="setSelectedColor(color.colorId)"
                       >
                         {{ color.colorName }}
                       </option>
@@ -76,7 +75,7 @@
                       id="modelYear"
                       formControlName="modelYear"
                       class="form-control"
-                      value="{{ carDetail?.modelYear }}"
+                      [value]="carDetail?.modelYear"
                     />
                   </div>
                 </div>
@@ -93,7 +92,7 @@
                       id="dailyPrice"
                       formControlName="dailyPrice"
                       class="form-control"
-                      value="{{ carDetail?.dailyPrice }}"
+                      [value]="carDetail?.dailyPrice"
                     />
                   </div>
                 </div>
@@ -110,6 +109,7 @@
                       id="description"
                       formControlName="description"
                       class="form-control"
+                      [value]="carDetail?.description"
                     />
                   </div>
                 </div>

@@ -41,6 +41,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CustomerAddComponent } from './components/customer-add/customer-add.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { CustomerAddComponent } from './components/customer-add/customer-add.com
     RegisterComponent,
     ProfileComponent,
     CustomerAddComponent,
+    FooterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

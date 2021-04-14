@@ -1,108 +1,3 @@
-<!-- <div class="container">
-  <div>
-    <app-navi></app-navi>
-  </div>
-  <div class="col-md-12">
-    <div class="card" style="width: 60rem, margin auto">
-      <div class="card-body">
-        <div class="card-header">
-          <div class="table-responsive-sm">
-            <div
-              *ngIf="dataLoaded == false"
-              class="spinner-border text-primary"
-              role="status"
-            >
-              <span class="visually-hidden"></span>
-            </div>
-            <table
-              *ngIf="dataLoaded == true"
-              class="table table-responsive-md table-striped table-hover table-bordered table caption-top"
-            >
-              <caption>
-                Araba Detayı
-              </caption>
-              <thead>
-                <tr>
-                  <th>Resim(ler)</th>
-
-                  <th>Markası</th>
-                  <th>Araba Adı</th>
-                  <th>Model Yılı</th>
-                  <th>Rengi</th>
-                  <th>Açıklama</th>
-                  <th>Günlük Ücret</th>
-                  <th>Findeks Puanı</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <img
-                      class="card-img-top"
-                      *ngFor="let image of images"
-                      style="width: 15rem"
-                      src="https://localhost:44368\{{ image.imagePath }}"
-                    />
-                  </td>
-
-                  <td>{{ carDetails?.brandName }}</td>
-                  <td>{{ carDetails?.carName }}</td>
-                  <td>{{ carDetails?.modelYear }}</td>
-                  <td>{{ carDetails?.colorName }}</td>
-                  <td>{{ carDetails?.description }}</td>
-                  <td>{{ carDetails?.dailyPrice | currency: "₺" }}</td>
-                  <td>{{ carDetails?.findexPoint }}</td>
-
-                  <td>
-                    <button
-                      *ngIf="isFindexEnough()"
-                      routerLink="/cars/payment/{{ carDetails?.carId }}"
-                      type="button"
-                      class="btn btn-outline-success"
-                      style="float: right"
-                    >
-                      {{ carDetails?.dailyPrice | currency: "₺" }} Kirala
-                    </button>
-                  </td>
-                  <td *ngIf="!isFindexEnough()">Findex Puanınız Yetersiz</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <button
-        *ngIf="isAdmin()"
-        type="button"
-        class="btn btn-secondary"
-        routerLink="update/{{ carDetails?.carId }}"
-        style="float: right"
-      >
-        Güncelle
-      </button>
-      <div class="card-footer">
-        <button
-          routerLink="/cars"
-          type="button"
-          class="btn btn-warning"
-          style="float: right"
-        >
-          Geri Dön
-        </button>
-        <button
-          *ngIf="isCustomer()"
-          routerLink="/customeradd"
-          type="button"
-          class="btn btn-outline-success"
-          style="float: right"
-        >
-          Müşteri Ol
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div class="container">
   <div>
     <app-navi></app-navi>
@@ -126,11 +21,41 @@
       <span class="sr-only"></span>
     </div>
     <div class="col-md-6">
-      <img
-        class="img-fluid img-thumbnail"
-        *ngFor="let image of images"
-        src="https://localhost:44368\{{ image.imagePath }}"
-      />
+      <div
+        id="carouselExampleControls"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div
+            *ngFor="let image of images; let i = index"
+            [ngClass]="getSlideClass(i)"
+          >
+            <img
+              src="https://localhost:44368\{{ image.imagePath }}"
+              class="d-block img-fluid img-thumbnail w-100"
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="card" style="width: 35rem">

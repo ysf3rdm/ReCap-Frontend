@@ -119,4 +119,11 @@ export class CarComponent implements OnInit {
         );
       });
   }
+  getSlideClass(index: Number) {
+    if (index == 0) {
+      return 'carousel-item active';
+    } else {
+      return 'carousel-item';
+    }
+  }
 }
