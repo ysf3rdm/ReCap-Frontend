@@ -1,6 +1,7 @@
 <div class="container">
   <div>
     <app-navi> </app-navi>
+    <br />
   </div>
   <div class="row">
     <div class="col-md-3">
@@ -48,31 +49,33 @@
             class="card"
             style="width: 19rem"
           >
-            <div class="d-flex" style="height: 70%">
-              <img [src]="getImagePath(car.imagePath)" class="card-img-top" />
-            </div>
-            <div class="h-100 bg-light border rounded-3">
-              <h3 class="card-title text-center">{{ car.carName }}</h3>
-              <h5 class="card-title text-center">
-                <b>{{ car.description }}</b>
-              </h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-center">
-                Günlük Ücret:
-                {{ car.dailyPrice | currency: "₺" }}
-              </li>
-            </ul>
-            <div>
-              <div class="h-500 bg-light">
-                <button
-                  class="btn btn-outline-secondary"
-                  routerLink="/cardetail/{{ car.carId }}"
-                  type="button"
-                  style="float: right"
-                >
-                  Detayları Gör
-                </button>
+            <div class="card" *ngIf="car.isRentable">
+              <div class="d-flex" style="height: 70%">
+                <img [src]="getImagePath(car.imagePath)" class="card-img-top" />
+              </div>
+              <div class="h-100 bg-light border rounded-3">
+                <h3 class="card-title text-center">{{ car.carName }}</h3>
+                <h5 class="card-title text-center">
+                  <b>{{ car.description }}</b>
+                </h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">
+                  Günlük Ücret:
+                  {{ car.dailyPrice | currency: "₺" }}
+                </li>
+              </ul>
+              <div>
+                <div class="h-500 bg-light">
+                  <button
+                    class="btn btn-outline-secondary"
+                    routerLink="/cardetail/{{ car.carId }}"
+                    type="button"
+                    style="float: right"
+                  >
+                    Detayları Gör
+                  </button>
+                </div>
               </div>
             </div>
           </div>

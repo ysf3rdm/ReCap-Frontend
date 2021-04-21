@@ -2,53 +2,19 @@
   <div>
     <app-navi></app-navi>
   </div>
+  <div>
+    <button
+      routerLink="/cardetail/{{ currentCar?.carId }}"
+      type="button"
+      class="btn btn-primary btn-sm"
+      style="float: right"
+    >
+      Geri Dön
+    </button>
+  </div>
+  <br /><br />
   <div class="row" style="margin: auto">
-    <form [formGroup]="dateForm">
-      <div class="card" style="width: 30rem">
-        <mat-form-field appearance="fill">
-          <mat-label>Alınacak tarih</mat-label>
-          <input
-            class="form-control"
-            name="rentDate"
-            matInput
-            formControlName="rentDate"
-            [matDatepicker]="picker"
-            required
-            placeholder="*11/11/2011"
-          /><mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Verilecek Tarih</mat-label>
-          <input
-            class="form-control"
-            name="returnDate"
-            [matDatepicker]="picker2"
-            formControlName="returnDate"
-            matInput
-            required
-            placeholder="*11/11/2011"
-          /><mat-datepicker-toggle
-            matSuffix
-            [for]="picker2"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
-        <button
-          class="btn btn-outline-success btn-sm"
-          (click)="
-            calculateAmount(dateForm.value.rentDate, dateForm.value.returnDate)
-          "
-        >
-          TARİHLERİ SEÇ
-        </button>
-      </div>
-    </form>
-    <div class="col-4">
+    <div class="col-md-4">
       <ul class="list-group">
         <li class="list-group-item" style="text-align: center">
           Kayıtlı kartlar
@@ -66,10 +32,8 @@
           Kayıtlı kartınız bulunmamaktadır.
         </li>
       </ul>
-    </div>
-    <form [formGroup]="creditCardForm">
-      <div class="row">
-        <div class="col-md-8">
+      <form [formGroup]="creditCardForm">
+        <div>
           <div class="mb-3">
             <label for="card-number" class="form-label"
               >Kart üzerinde yazan Ad Soyad</label
@@ -169,44 +133,84 @@
           <button
             type="button"
             class="btn btn-success btn-sm"
-            [disabled]="!creditCardForm.valid || !dateForm.valid || !baba"
+            [disabled]="!creditCardForm.valid"
             (click)="pay()"
           >
-            {{ totalPrice | currency: "₺" }} Ödeme Yap</button
-          ><button
-            routerLink="/cardetail/{{ currentCar?.carId }}"
-            type="button"
-            class="btn btn-primary btn-sm"
-            style="float: right"
-          >
-            Geri Dön
+            {{ totalPrice | currency: "₺" }} Ödeme Yap
           </button>
         </div>
-        <div class="col-md-4">
-          <ul class="list-group">
-            <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
-            <li *ngIf="totalPoint" class="list-group-item">
-              Kazandıracağı Puan: {{ totalPoint }}
-            </li>
-            <li class="list-group-item">
-              Günlük kazandıracağı Puan: {{ currentCar?.giveToPoint }}
-            </li>
-            <li class="list-group-item">Araba: {{ currentCar?.carName }}</li>
-            <li class="list-group-item">
-              Markası: {{ currentCar?.brandName }}
-            </li>
-            <li class="list-group-item">
-              Açıklama: {{ currentCar?.description }}
-            </li>
-            <li class="list-group-item">
-              Günlük Ücret: {{ currentCar?.dailyPrice | currency: "₺" }}
-            </li>
-            <li class="list-group-item">
-              Müşteri Numarası: {{ customer?.customerId }}
-            </li>
-          </ul>
+      </form>
+    </div>
+
+    <div class="col-md-8">
+      <div style="float: right">
+        <div class="card" style="width: 27rem">
+          <div
+            id="carouselExampleControls"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner">
+              <div
+                *ngFor="let image of images; let i = index"
+                [ngClass]="getSlideClass(i)"
+              >
+                <img
+                  src="https://localhost:44368\{{ image.imagePath }}"
+                  class="card-img-top img-fluid img-thumbnail"
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleControls"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item fw-bold">Kiralama Bilgileri</li>
+              <li *ngIf="totalPoint" class="list-group-item">
+                Kazandıracağı Puan: {{ totalPoint }}
+              </li>
+              <li class="list-group-item">
+                Günlük kazandıracağı Findeks Puanı:
+                {{ currentCar?.giveToPoint }}
+              </li>
+              <li class="list-group-item">Araba: {{ currentCar?.carName }}</li>
+              <li class="list-group-item">
+                Markası: {{ currentCar?.brandName }}
+              </li>
+              <li class="list-group-item">
+                Açıklama: {{ currentCar?.description }}
+              </li>
+              <li class="list-group-item">
+                Günlük Ücret: {{ currentCar?.dailyPrice | currency: "₺" }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </div>

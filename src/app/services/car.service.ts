@@ -32,6 +32,12 @@ export class CarService {
     let newPath = this.apiUrl + 'cars/getcardetails';
     return this.httpClient.get<ListResponseModel<CarDetail>>(newPath);
   }
+  getCarDetailsByRentDate(
+    rentDate: string
+  ): Observable<ListResponseModel<CarDetail>> {
+    let newPath = this.apiUrl + 'cars/getallbydate?rentDate=' + rentDate;
+    return this.httpClient.get<ListResponseModel<CarDetail>>(newPath);
+  }
   getCarDetailsByBrandId(
     brandId: number
   ): Observable<ListResponseModel<CarDetail>> {

@@ -47,6 +47,7 @@ export class CarUpdateComponent implements OnInit {
       this.getCarDetailsByCarId(params['carId']);
       this.getImagesByCarId(params['carId']);
     });
+    this.setCarDetail();
   }
   getCarDetailsByCarId(carId: number) {
     this.carService.getCarDetailsByCarId(carId).subscribe((response) => {
@@ -68,11 +69,24 @@ export class CarUpdateComponent implements OnInit {
       modelYear: ['', Validators.required],
       dailyPrice: ['', Validators.required],
       description: ['', Validators.required],
+      findexPoint: ['', Validators.required],
+      giveToPoint: ['', Validators.required],
     });
   }
   updateCar() {
     let newCar = Object.assign({}, this.carUpdateForm.value);
     newCar.carId = this.carDetail.carId;
+    if (this.carUpdateForm.value.brandId === '') {
+      newCar.brandId = this.carDetail.brandId;
+    } else {
+      newCar.brandId = +this.carUpdateForm.value.brandId;
+    }
+    if (this.carUpdateForm.value.colorId === '') {
+      newCar.colorId = this.carDetail.colorId;
+    } else {
+      newCar.colorId = +this.carUpdateForm.value.colorId;
+    }
+
     console.log(this.carUpdateForm);
     console.log(newCar);
     this.carService.update(newCar).subscribe((response) => {
@@ -103,5 +117,15 @@ export class CarUpdateComponent implements OnInit {
     } else {
       return false;
     }
+  }
+  setCarDetail() {
+    this.carUpdateForm.patchValue({
+      carName: this.carDetail?.carName,
+      modelYear: this.carDetail?.modelYear,
+      dailyPrice: this.carDetail?.dailyPrice,
+      description: this.carDetail?.description,
+      findexPoint: this.carDetail?.findexPoint,
+      giveToPoint: this.carDetail?.giveToPoint,
+    });
   }
 }

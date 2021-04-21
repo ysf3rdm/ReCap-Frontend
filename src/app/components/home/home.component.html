@@ -1,1 +1,72 @@
-<p>home works!</p>
+<body>
+  <div class="container">
+    <div>
+      <app-navi> </app-navi>
+    </div>
+    <div class="site-header">
+      <ul class="header-menu">
+        <li class="mega-menu"><a class="menu-text">ARABALAR</a></li>
+        <li class="mega-menu"><a class="menu-text">KAMPANYALAR</a></li>
+        <li class="mega-menu"><a class="menu-text">OFİSLER</a></li>
+        <li class="mega-menu"><a class="menu-text">FİLO</a></li>
+        <li class="mega-menu">
+          <a class="menu-text" ahref="#">İLETİŞİM</a>
+        </li>
+      </ul>
+    </div>
+    <br />
+    <div>
+      <div id="forms" class="row" style="margin: auto">
+        <form class="place" style="margin: auto">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nereden Alacaksınız?</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Teslim alınacak konum"
+            />
+          </div>
+        </form>
+        <form class="date" [formGroup]="dateForm">
+          <div class="date" style="margin: auto">
+            <mat-form-field appearance="fill" color="accent">
+              <mat-label>Alış Tarihi</mat-label>
+              <input
+                matInput
+                [min]="minDate"
+                [matDatepicker]="picker"
+                formControlName="rentDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="date" style="margin: auto">
+            <mat-form-field appearance="fill" color="accent">
+              <mat-label>İade Tarihi</mat-label>
+              <input
+                matInput
+                [min]="minDateforReturn"
+                [matDatepicker]="picker2"
+                formControlName="returnDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </form>
+        <div class="search" style="margin: auto">
+          <button class="btn btn-success" (click)="checkDates()">Ara</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

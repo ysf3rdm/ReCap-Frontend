@@ -12,6 +12,7 @@ import { ColorListComponent } from './components/color-list/color-list.component
 import { ColorUpdateComponent } from './components/color-update/color-update.component';
 import { CustomerAddComponent } from './components/customer-add/customer-add.component';
 import { CustomerComponent } from './components/customer/customer.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -21,7 +22,8 @@ import { RentalComponent } from './components/rental/rental.component';
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: CarDetailComponent },
+  { path: '', pathMatch: 'full', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'cars', component: CarDetailComponent },
   { path: 'cars/brand/:brandId', component: CarDetailComponent },
   { path: 'cars/color/:colorId', component: CarDetailComponent },

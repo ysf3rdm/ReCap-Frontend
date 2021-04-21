@@ -23,7 +23,6 @@
                       id="carName"
                       formControlName="carName"
                       class="form-control"
-                      [value]="carDetail?.carName"
                     />
                   </div>
                 </div>
@@ -63,53 +62,57 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="modelYear">
-                    Model Yılı
-                    <small>
-                      ===> şu anki modeli: {{ carDetail?.modelYear }}
-                    </small></label
-                  >
+                  <label for="modelYear"> Model Yılı </label>
                   <div class="form-group">
                     <input
                       type="text"
                       id="modelYear"
                       formControlName="modelYear"
                       class="form-control"
-                      [value]="carDetail?.modelYear"
                     />
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="dailyPrice">
-                    Günlük Ücret
-                    <small>
-                      ===> şu anki ücreti: {{ carDetail?.dailyPrice }}
-                    </small></label
-                  >
+                  <label for="dailyPrice"> Günlük Ücret </label>
                   <div class="form-group">
                     <input
                       type="text"
                       id="dailyPrice"
                       formControlName="dailyPrice"
                       class="form-control"
-                      [value]="carDetail?.dailyPrice"
                     />
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="description">
-                    Açıklama
-                    <small>
-                      ===> şu anki açıklama: {{ carDetail?.description }}
-                    </small></label
-                  >
+                  <label for="description"> Açıklama </label>
                   <div class="form-group">
                     <input
                       type="text"
                       id="description"
                       formControlName="description"
                       class="form-control"
-                      [value]="carDetail?.description"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="findexPoint"> Findeks Puanı </label>
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      id="findexPoint"
+                      formControlName="findexPoint"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="giveToPoint"> Vereceği Findeks Puanı </label>
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      id="giveToPoint"
+                      formControlName="giveToPoint"
+                      class="form-control"
                     />
                   </div>
                 </div>

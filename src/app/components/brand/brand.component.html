@@ -208,7 +208,7 @@
               *ngFor="let customer of customers"
               [class]="getCurrentCustomerClass(customer)"
             >
-              {{ customer.firstName }} {{ customer.lastName }}
+              {{ customer?.firstName }} {{ customer?.lastName }}
             </li>
           </div>
         </div>

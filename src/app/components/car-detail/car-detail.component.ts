@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
+  rentDate = localStorage.getItem('rentDate');
   path = 'https://localhost:44368/';
   nowDate = Date.now();
   expirationTime = Date.parse(localStorage.getItem('expiration'));
@@ -39,7 +40,7 @@ export class CarDetailComponent implements OnInit {
     localStorage.setItem('claim', '');
     this.getClaims();
     this.getImages();
-    this.getCarDetails();
+    this.getCarDetailsByRentDate();
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
         this.getImagesByCarId(params['carId']);
@@ -71,6 +72,14 @@ export class CarDetailComponent implements OnInit {
       this.carDetails = response.data;
       this.dataLoaded = true;
     });
+  }
+  getCarDetailsByRentDate() {
+    this.carService
+      .getCarDetailsByRentDate(this.rentDate)
+      .subscribe((response) => {
+        this.carDetails = response.data;
+        this.dataLoaded = true;
+      });
   }
   getCarDetailsByBrandId(brandId: number) {
     this.carService.getCarDetailsByBrandId(brandId).subscribe((response) => {

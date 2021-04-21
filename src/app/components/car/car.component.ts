@@ -11,6 +11,7 @@ import { Rental } from 'src/app/models/rental';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/app/models/customer';
 import { Car } from 'src/app/models/car';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-car',
@@ -20,18 +21,13 @@ import { Car } from 'src/app/models/car';
 })
 export class CarComponent implements OnInit {
   rentalAddForm: FormGroup;
-  customerId: Number;
   customer: Customer;
-  rental: Rental;
-  rentDate: Date;
   totalDay: number;
-  totalPrice: number;
-  returnDate: Date;
+  totalPoints: number;
   carDetails: CarDetail;
   currentCar: Car;
   images: Image[] = [];
   dataLoaded = false;
-  rentalDetail: Rental;
   constructor(
     private carService: CarService,
     private activatedRoute: ActivatedRoute,
@@ -40,7 +36,8 @@ export class CarComponent implements OnInit {
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +52,7 @@ export class CarComponent implements OnInit {
     this.carService.getCarDetailsByCarId(carId).subscribe((response) => {
       this.carDetails = response.data[0];
       this.dataLoaded = true;
+      this.calculatePoint();
     });
   }
   getImagesByCarId(carId: number) {
@@ -125,5 +123,14 @@ export class CarComponent implements OnInit {
     } else {
       return 'carousel-item';
     }
+  }
+  calculatePoint() {
+    let rentDate = new Date(this.localStorageService.getRentDate());
+    let returnDate = new Date(this.localStorageService.getReturnDate());
+    this.totalDay = Math.floor(
+      (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
+    );
+    this.totalPoints = this.totalDay * this.carDetails.giveToPoint;
+    console.log(this.totalPoints);
   }
 }

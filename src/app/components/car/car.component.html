@@ -1,6 +1,7 @@
 <div class="container">
   <div>
     <app-navi></app-navi>
+    <br />
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12">
@@ -13,6 +14,7 @@
         Araba Listesine Dön
       </button>
     </div>
+    <br /><br /><br />
     <div
       *ngIf="dataLoaded == false"
       class="spinner-border text-primary"
@@ -92,12 +94,12 @@
                 <td>{{ carDetails?.colorName }}</td>
               </tr>
               <tr>
-                <th scope="row">Findeks Puanı:</th>
+                <th scope="row">Gereken Findeks Puanı:</th>
                 <td>{{ carDetails?.findexPoint }}</td>
               </tr>
               <tr>
-                <th scope="row">Günlük Vereceği Findeks Puanı:</th>
-                <td>{{ carDetails?.giveToPoint }}</td>
+                <th scope="row">Toplam Vereceği Findeks Puanı:</th>
+                <td>{{ totalPoints }}</td>
               </tr>
               <tr>
                 <th scope="row">Açıklama:</th>

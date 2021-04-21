@@ -38,4 +38,16 @@ export class LocalStorageService {
   getExpiration() {
     return localStorage.getItem('expiration');
   }
+  setRentDate(date: Date) {
+    localStorage.setItem('rentDate', date.toDateString());
+  }
+  setReturnDate(date: Date) {
+    localStorage.setItem('returnDate', date.toDateString());
+  }
+  getRentDate() {
+    return localStorage.getItem('rentDate');
+  }
+  getReturnDate() {
+    return localStorage.getItem('returnDate');
+  }
 }
