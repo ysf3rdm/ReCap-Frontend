@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           this.toastrService.success(response.message, 'Başarılı');
           this.localStorage.set(response.data);
           this.toastrService.info('Ana sayfaya yönlendiriliyorsunuz', 'Bilgi');
-          this.router.navigate(['cars']);
+          this.router.navigate(['home']);
         },
         (responseError) => {
           this.toastrService.error(responseError.error);

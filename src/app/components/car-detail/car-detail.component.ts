@@ -41,20 +41,6 @@ export class CarDetailComponent implements OnInit {
     this.getClaims();
     this.getImages();
     this.getCarDetailsByRentDate();
-    this.activatedRoute.params.subscribe((params) => {
-      if (params['carId']) {
-        this.getImagesByCarId(params['carId']);
-      } else if (params['brandId'] && params['colorId']) {
-        this.getCarDetailsByBrandIdAndColorId(
-          params['brandId'],
-          params['colorId']
-        );
-      } else if (params['brandId']) {
-        this.getCarDetailsByBrandId(params['brandId']);
-      } else if (params['colorId']) {
-        this.getCarDetailsByColorId(params['colorId']);
-      }
-    });
   }
   getImagesByCarId(carId: number) {
     this.imageService.getImagesByCarId(carId).subscribe((response) => {
@@ -79,6 +65,7 @@ export class CarDetailComponent implements OnInit {
       .subscribe((response) => {
         this.carDetails = response.data;
         this.dataLoaded = true;
+        this.isAvalabile();
       });
   }
   getCarDetailsByBrandId(brandId: number) {
@@ -140,6 +127,18 @@ export class CarDetailComponent implements OnInit {
       );
       this.router.navigate(['login']);
       this.localStorageService.logOut();
+    }
+  }
+  isAvalabile() {
+    for (let i = 0; i < this.carDetails.length; i++) {
+      if (!this.carDetails[i].isRentable) {
+        this.carDetails.splice(i, 1);
+        if (i <= 0) {
+          i = -1;
+        } else {
+          i -= 1;
+        }
+      }
     }
   }
 }
