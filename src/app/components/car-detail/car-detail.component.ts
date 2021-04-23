@@ -17,7 +17,7 @@ import { UserService } from 'src/app/services/user.service';
 export class CarDetailComponent implements OnInit {
   rentDate = localStorage.getItem('rentDate');
   path = 'https://localhost:44368/';
-  nowDate = Date.now();
+
   expirationTime = Date.parse(localStorage.getItem('expiration'));
   carDetails: CarDetail[];
   images: Image[];
@@ -36,11 +36,24 @@ export class CarDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.expirationLogOut();
     localStorage.setItem('claim', '');
     this.getClaims();
     this.getImages();
     this.getCarDetailsByRentDate();
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['carId']) {
+        this.getImagesByCarId(params['carId']);
+      } else if (params['brandId'] && params['colorId']) {
+        this.getCarDetailsByBrandIdAndColorId(
+          params['brandId'],
+          params['colorId']
+        );
+      } else if (params['brandId']) {
+        this.getCarDetailsByBrandId(params['brandId']);
+      } else if (params['colorId']) {
+        this.getCarDetailsByColorId(params['colorId']);
+      }
+    });
   }
   getImagesByCarId(carId: number) {
     this.imageService.getImagesByCarId(carId).subscribe((response) => {
@@ -119,16 +132,6 @@ export class CarDetailComponent implements OnInit {
     }
   }
 
-  expirationLogOut() {
-    if (this.expirationTime <= this.nowDate) {
-      this.toastrService.info(
-        'Süreniz bitmiştir.Tekrar giriş yapınız',
-        'Bilgi'
-      );
-      this.router.navigate(['login']);
-      this.localStorageService.logOut();
-    }
-  }
   isAvalabile() {
     for (let i = 0; i < this.carDetails.length; i++) {
       if (!this.carDetails[i].isRentable) {

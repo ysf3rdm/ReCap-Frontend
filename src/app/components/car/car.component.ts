@@ -131,6 +131,5 @@ export class CarComponent implements OnInit {
       (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
     );
     this.totalPoints = this.totalDay * this.carDetails.giveToPoint;
-    console.log(this.totalPoints);
   }
 }

@@ -11,6 +11,12 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./navi.component.css'],
 })
 export class NaviComponent implements OnInit {
+  interval: any;
+  nowDate = Date.now();
+  expiration: Date = new Date(this.localStorage.getExpiration());
+  expirationTime: number;
+  expirationMinutes: any;
+  expirationSeconds: any;
   firstName = '';
   lastName = '';
   constructor(
@@ -22,6 +28,9 @@ export class NaviComponent implements OnInit {
   user: RegisterModel;
   ngOnInit(): void {
     this.getFirstName();
+    this.interval = setInterval(() => {
+      this.getExpirataion();
+    }, 1000);
   }
 
   isAuth() {
@@ -45,6 +54,24 @@ export class NaviComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+  getExpirataion() {
+    let timeNow = Date.now();
+    let expiration = this.expiration.getTime();
+    this.expirationTime = expiration - timeNow;
+    this.expirationMinutes = this.expirationTime / 1000 / 60;
+    this.expirationMinutes = parseInt(this.expirationMinutes);
+    this.expirationSeconds = (this.expirationTime / 1000) % 60;
+    this.expirationSeconds = parseInt(this.expirationSeconds);
+    if (expiration <= timeNow) {
+      this.toastrService.info(
+        'Süreniz bitmiştir.Tekrar giriş yapınız',
+        'Bilgi'
+      );
+      this.router.navigate(['login']);
+      this.localStorage.logOut();
+      clearInterval(this.interval);
     }
   }
 }

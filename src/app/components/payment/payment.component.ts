@@ -144,7 +144,6 @@ export class PaymentComponent implements OnInit {
   calculateAmount() {
     let rentDate = new Date(this.localStorageService.getRentDate());
     let returnDate = new Date(this.localStorageService.getReturnDate());
-    this.toastrService.success('Tarihler Seçildi', 'Başarılı');
     this.totalDay = Math.floor(
       (returnDate.getTime() - rentDate.getTime()) / 1000 / 60 / 60 / 24
     );
