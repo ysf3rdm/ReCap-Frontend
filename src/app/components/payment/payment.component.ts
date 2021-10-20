@@ -170,6 +170,7 @@ export class PaymentComponent implements OnInit {
       creditCard: creditCard,
       rental: rental,
     };
+    console.log(paymentDetail);
     this.rentalService.addToRent(paymentDetail).subscribe(
       (response) => {
         if (this.creditCardForm.value.wannaSave) {
@@ -200,11 +201,6 @@ export class PaymentComponent implements OnInit {
         this.customer.findexPoint += this.totalPoint;
         this.customerService.update(this.customer).subscribe();
         this.toastrService.success(response.message, 'Başarılı');
-        this.router.navigate(['/']).then(() =>
-          setTimeout(function () {
-            window.location.reload();
-          }, 1000)
-        );
       },
       (errorResponse) => {
         this.toastrService.error(errorResponse.error.message, 'HATA');

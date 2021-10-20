@@ -80,6 +80,7 @@ export class CarDetailComponent implements OnInit {
         this.dataLoaded = true;
         this.isAvalabile();
       });
+    console.log(this.rentDate);
   }
   getCarDetailsByBrandId(brandId: number) {
     this.carService.getCarDetailsByBrandId(brandId).subscribe((response) => {
